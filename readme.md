@@ -1,4 +1,4 @@
-# 环境
+# Environment
 - windows 7 32 bit
 - vfdwin 软盘模拟器
 - partcopy 用于拷贝文件
