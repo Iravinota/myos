@@ -1,6 +1,6 @@
 # Description
 
-This is an simple operating system used for study purpose.
+This is a simple operating system used for study purpose.
 
 # Environment
 - windows 7 32 bit
