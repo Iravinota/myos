@@ -1,3 +1,7 @@
+# Description
+
+This is an simple operating system used for study purpose.
+
 # Environment
 - windows 7 32 bit
 - vfdwin 软盘模拟器
@@ -42,16 +46,16 @@ info:        action=report
 - Click *Continue[c]* button, go to that break point.
 - The memory at this address is not a usefull instruction. But We know the Bochs is running.
 
-# 执行
+# Execute
 - In the *cmd* window, execute this command: `nasm -f bin Boot1.asm -o Boot1.bin`. The `-f bin` denotes the output format is a *pure binary* format.
 - Execute: `partcopy Boot1.bin 0 200 -f0`, copy this image to floppy disk A:. Then the floppy A:\ is a pure disk, has no file system format ever.
 - Start the bochs debugger by double click *bochsrc.bxrc*. Write `lb 0x7c00`, then write `c`. Bochs will stop at address 0x7c00. Then you can see the Boot1.bin content.
 
-# 参考文档
+# References
 
 - https://thestarman.pcministry.com/asm/bochs/bochsdbg.html
 
 
-# 记录
+# Records
 - 2018-12-27: 参照Demo23编写操作系统，也参照其它demo
 - 2018-12-28: 0xAA55可启动镜像
