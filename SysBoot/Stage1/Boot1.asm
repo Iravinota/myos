@@ -13,7 +13,7 @@
 ;*******************************************************************************************
 
 bits 16                 ; tell nasm to generate 16bit mode code. Useless
-org 0x7c00              ; assume this binary file will be loaded at 0x7c00 memory
+org 0x0000              ; we will set registers later
 
 ; boot sector code
 start:
@@ -70,10 +70,10 @@ PrintDone:
 ;*********************************************
 
 main: 
-            mov ax, 0
-			mov ds, ax			; set ds to 0, then the DS:SI==>0x0000:0x7c00-msg
+            mov ax, 0x07c0
+			mov ds, ax			; set ds to 0x07c0, then the DS:SI==>0x07c0:0x0000-msg
 
-			mov si, msg			; msg has the offset of 0x7c00
+			mov si, msg			; msg has the offset of 0x0000
 			call Print
 			
 			cli
