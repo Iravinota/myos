@@ -45,15 +45,28 @@ info:        action=report
 - Write `lb 0x7c00` to set a break point at liner address 0x7c00. This is becaue the BIOS load a bootable image into 0x7c00 address.
 - Click *Continue[c]* button, go to that break point.
 - The memory at this address is not a usefull instruction. But We know the Bochs is running.
+- Click *View-->Physical Dump*, at the poped window, input *0x7c00*, then you will see the memory infomation at address 0x7c00.
 
 # Execute
 - In the *cmd* window, execute this command: `nasm -f bin Boot1.asm -o Boot1.bin`. The `-f bin` denotes the output format is a *pure binary* format.
 - Execute: `partcopy Boot1.bin 0 200 -f0`, copy this image to floppy disk A:. Then the floppy A:\ is a pure disk, has no file system format ever.
-- Start the bochs debugger by double click *bochsrc.bxrc*. Write `lb 0x7c00`, then write `c`. Bochs will stop at address 0x7c00. Then you can see the Boot1.bin content.
+- Start the bochs debugger by double click *bochdbg.exe*. Write `lb 0x7c00`, then write `c`. Bochs will stop at address 0x7c00. Then you can see the Boot1.bin content.
+- Click *View-->Physical Dump*, at the poped window, input *0x7c00*, then you will see the memory infomation at address 0x7c00.
+
+## Usefull Bochs Debugger command
+
+- ref: http://bochs.sourceforge.net/doc/docbook/user/internal-debugger.html#DEBUGGER-GUI
+- `lb 0x7c00`: set a linear address instruction breakpoint
+- `c`: continue
+- `s`: step next command
+- *view-->Physical Dump*: dump memory infomation at address pointed.
 
 # References
 
+- http://www.brokenthorn.com/Resources/OSDevIndex.html
 - https://thestarman.pcministry.com/asm/bochs/bochsdbg.html
+- http://bochs.sourceforge.net/doc/docbook/user/internal-debugger.html#DEBUGGER-GUI
+- https://www.nasm.us/doc/
 
 
 # Records
