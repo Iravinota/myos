@@ -67,8 +67,11 @@ info:        action=report
 - https://thestarman.pcministry.com/asm/bochs/bochsdbg.html
 - http://bochs.sourceforge.net/doc/docbook/user/internal-debugger.html#DEBUGGER-GUI
 - https://www.nasm.us/doc/
+- https://en.wikipedia.org/wiki/BIOS_interrupt_call - BIOS Call List
+- http://www.ctyme.com/rbrown.htm - Interrupt Table, Click *Interrupt*
 
 
 # Records
 - 2018-12-27: 参照Demo23编写操作系统，也参照其它demo
 - 2018-12-28: 0xAA55可启动镜像
+- 2019-01-08: 可以在屏幕上输出字符串
