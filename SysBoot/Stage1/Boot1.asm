@@ -163,6 +163,13 @@ main:
 		mov fs, ax
 		mov gs, ax
 
+    ; Eric - Print Welcome information
+
+        mov si, msg
+        call Print
+        mov si, msgCRLF
+        call Print
+
 	;----------------------------------------------------
     ; create stack
     ;----------------------------------------------------
@@ -202,18 +209,127 @@ main:
 
         mov     bx, 0x0200                            ; copy root dir above bootcode
         call    ReadSectors
-		
-		
+
+    ;----------------------------------------------------
+    ; Eric - Find a 'ImageName' file to load
+    ;----------------------------------------------------
+    ; browse root directory for binary image
+        mov     cx, WORD [bpbRootEntries]             ; load loop counter
+        mov     di, 0x0200                            ; locate first root entry
+    .LOOP:
+        push    cx
+        mov     cx, 11                                ; 11 character name
+        mov     si, ImageName                         ; image name to find
+        push    di
+        rep  cmpsb                                    ; test for entry match
+        pop     di
+        je      LOAD_FAT
+        pop     cx
+        add     di, 0x0020                            ; queue next directory entry
+        loop    .LOOP
+        jmp     FAILURE	
+
+    ;----------------------------------------------------
+    ; Load FAT - Eric - File Allocation Table in FAT12 formated disk
+    ;----------------------------------------------------
+    LOAD_FAT:
+    ; save starting cluster of boot image
+    
+        mov     dx, WORD [di + 0x001A]
+        mov     WORD [cluster], dx                  ; file's first cluster
         
-        hlt
+    ; compute size of FAT and store in "cx"
+    
+        xor     ax, ax
+        mov     al, BYTE [bpbNumberOfFATs]          ; number of FATs
+        mul     WORD [bpbSectorsPerFAT]             ; sectors used by FATs
+        mov     cx, ax
+
+    ; compute location of FAT and store in "ax"
+
+        mov     ax, WORD [bpbReservedSectors]       ; adjust for bootsector
+        
+    ; read FAT into memory (Eric - 07C0:0200)
+
+        mov     bx, 0x0200                          ; copy FAT above bootcode
+        call    ReadSectors
+
+    ; read image file into memory (0050:0000)
+    
+        mov     ax, 0x0050
+        mov     es, ax                              ; destination for image
+        mov     bx, 0x0000                          ; destination for image
+        push    bx
+
+    ;----------------------------------------------------
+    ; Eric - Load 'ImageName' file from floppy disk, the 'ImageName' has been found at .LOOP 
+    ; load the file to memory es:bx==>0050:0000
+    ;----------------------------------------------------
+    LOAD_IMAGE:
+    
+        mov     ax, WORD [cluster]                  ; cluster to read
+        pop     bx                                  ; buffer to read into
+        call    ClusterLBA                          ; convert cluster to LBA
+        xor     cx, cx
+        mov     cl, BYTE [bpbSectorsPerCluster]     ; sectors to read
+        call    ReadSectors
+        push    bx
+        
+    ; compute next cluster
+    
+        mov     ax, WORD [cluster]                  ; identify current cluster
+        mov     cx, ax                              ; copy current cluster
+        mov     dx, ax                              ; copy current cluster
+        shr     dx, 0x0001                          ; divide by two
+        add     cx, dx                              ; sum for (3/2)
+        mov     bx, 0x0200                          ; location of FAT in memory
+        add     bx, cx                              ; index into FAT
+        mov     dx, WORD [bx]                       ; read two bytes from FAT
+        test    ax, 0x0001
+        jnz     .ODD_CLUSTER
+        
+    .EVEN_CLUSTER:
+    
+        and     dx, 0000111111111111b               ; take low twelve bits
+        jmp     .DONE
+        
+    .ODD_CLUSTER:
+    
+        shr     dx, 0x0004                          ; take high twelve bits
+        
+    .DONE:
+    
+        mov     WORD [cluster], dx                  ; store new cluster
+        cmp     dx, 0x0FF0                          ; test for end of file. Eric - See http://www.brokenthorn.com/Resources/OSDev6.html - File Allocation Tables (FATs)
+        jb      LOAD_IMAGE
+        
+    DONE:
+    
+        mov     si, msgCRLF
+        call    Print
+        mov	    dl, [bootdevice]
+        push    WORD 0x0050
+        push    WORD 0x0000
+        retf
+
+    ;--------------------------------------------------
+    ; Failure infomation
+    ;--------------------------------------------------
+    FAILURE:
+        mov     si, msgFailure
+        call    Print
+        mov     ah, 0x00
+        int     0x16                                ; await keypress
+        int     0x19                                ; warm boot computer
 
 bootdevice  db 0x00
 datasector  dw 0x0000
 cluster     dw 0x0000
-ImageName   db "KRNLDR  SYS"
+ImageName   db "A       TXT"
 msgCRLF     db 0x0D, 0x0A, 0x00
 msgProgress db ".", 0x00
-msg	db	"Welcome to My Operating System!", 0
+msg	db	"Welcome to MyOS!", 0
+msgFailure  db 0x0D, 0x0A, "MISSING OR CURRUPT KRNLDR. Press Any Key to Reboot", 0x0D, 0x0A, 0x00
 
 ; Padding to 512 bytes
 times 510-($-$$) db 0   ; $ represents the current line, $$ represents the first line

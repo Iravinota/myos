@@ -75,3 +75,4 @@ info:        action=report
 - 2018-12-27: 参照Demo23编写操作系统，也参照其它demo
 - 2018-12-28: 0xAA55可启动镜像
 - 2019-01-08: 可以在屏幕上输出字符串
+- 2019-01-09: Read RootDirectory from a FAT12/16 formated floppy disk to memory 07C0:0200

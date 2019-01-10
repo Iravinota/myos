@@ -17,3 +17,11 @@
 
 ![](img/2019-01-09-23-05-14.png)
 
+## 2019-01-10
+
+- Load File Allocation Table(FAT), at sector 1 (just besides BootSector(512 bytes) in the FAT12 formated floppy disk)
+
+lb 0x7d36: LOAD_FAT-->call ReadSectors
+; CX=>Number of sectors to read     ==>0x12
+; AX=>Starting sector               ==>1
+; ES:BX=>Buffer to read to          ==>07c0:0200
