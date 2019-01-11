@@ -325,7 +325,7 @@ main:
 bootdevice  db 0x00
 datasector  dw 0x0000
 cluster     dw 0x0000
-ImageName   db "A       TXT"
+ImageName   db "KRNLDR  SYS"
 msgCRLF     db 0x0D, 0x0A, 0x00
 msgProgress db ".", 0x00
 msg	db	"Welcome to MyOS!", 0

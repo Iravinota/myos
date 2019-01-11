@@ -25,3 +25,8 @@ lb 0x7d36: LOAD_FAT-->call ReadSectors
 ; CX=>Number of sectors to read     ==>0x12
 ; AX=>Starting sector               ==>1
 ; ES:BX=>Buffer to read to          ==>07c0:0200
+
+## 2019-01-11
+
+- `lb 0x7d8b`: The last command of the Boot1.bin
+- `lb 0x0500`: The KRNLDR.SYS executable code
