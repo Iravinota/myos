@@ -1,8 +1,9 @@
-# Description
+# MyOS
 
 This is a simple operating system used for study purpose.
 
-# Environment
+## Environment
+
 - windows 7 32 bit
 - vfdwin 软盘模拟器
 - partcopy 用于拷贝文件
@@ -11,15 +12,17 @@ This is a simple operating system used for study purpose.
 - VS Code 编辑器
 - Microsoft Visual C++ 2010
 
-## Install Visual Floppy Disk
+### Install Visual Floppy Disk
+
 - start vfdwin
 - click *install*
 - In the *Driver* page, click *Open/Create*, create a A: floppy disk, and then format it.
 
-## Start Bochs and Debugger
+### Start Bochs and Debugger
+
 - Create a file *bochsrc.bxrc* in the bochs directory:
 
-```
+``` shell
 # ROM and VGA BIOS images ---------------------------------------------
  
 romimage:    file=BIOS-bochs-latest
@@ -47,31 +50,32 @@ info:        action=report
 - The memory at this address is not a usefull instruction. But We know the Bochs is running.
 - Click *View-->Physical Dump*, at the poped window, input *0x7c00*, then you will see the memory infomation at address 0x7c00.
 
-# Execute
+## Execute
+
 - In the *cmd* window, execute this command: `nasm -f bin Boot1.asm -o Boot1.bin`. The `-f bin` denotes the output format is a *pure binary* format.
 - Execute: `partcopy Boot1.bin 0 200 -f0`, copy this image to floppy disk A:. Then the floppy A:\ is a pure disk, has no file system format ever.
 - Start the bochs debugger by double click *bochdbg.exe*. Write `lb 0x7c00`, then write `c`. Bochs will stop at address 0x7c00. Then you can see the Boot1.bin content.
 - Click *View-->Physical Dump*, at the poped window, input *0x7c00*, then you will see the memory infomation at address 0x7c00.
 
-## Usefull Bochs Debugger command
+### Usefull Bochs Debugger command
 
-- ref: http://bochs.sourceforge.net/doc/docbook/user/internal-debugger.html#DEBUGGER-GUI
+- ref: <http://bochs.sourceforge.net/doc/docbook/user/internal-debugger.html#DEBUGGER-GUI>
 - `lb 0x7c00`: set a linear address instruction breakpoint
 - `c`: continue
 - `s`: step next command
 - *view-->Physical Dump*: dump memory infomation at address pointed.
 
-# References
+## References
 
-- http://www.brokenthorn.com/Resources/OSDevIndex.html
-- https://thestarman.pcministry.com/asm/bochs/bochsdbg.html
-- http://bochs.sourceforge.net/doc/docbook/user/internal-debugger.html#DEBUGGER-GUI
-- https://www.nasm.us/doc/
-- https://en.wikipedia.org/wiki/BIOS_interrupt_call - BIOS Call List
-- http://www.ctyme.com/rbrown.htm - Interrupt Table, Click *Interrupt*
+- <http://www.brokenthorn.com/Resources/OSDevIndex.html>
+- <https://thestarman.pcministry.com/asm/bochs/bochsdbg.html>
+- <http://bochs.sourceforge.net/doc/docbook/user/internal-debugger.html#DEBUGGER-GUI>
+- <https://www.nasm.us/doc/>
+- <https://en.wikipedia.org/wiki/BIOS_interrupt_call> - BIOS Call List
+- <http://www.ctyme.com/rbrown.htm> - Interrupt Table, Click *Interrupt*
 
+## Records
 
-# Records
 - 2018-12-27: 参照Demo23编写操作系统，也参照其它demo
 - 2018-12-28: 0xAA55可启动镜像
 - 2019-01-08: 可以在屏幕上输出字符串
