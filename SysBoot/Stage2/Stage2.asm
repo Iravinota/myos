@@ -35,7 +35,7 @@ PrintDone:
 LoadingMsg db 0x0D, 0x0A, "Searching for Operating System...", 0x00
 
 main:
-    cli                         ; If there is not cli, will print LoadingMsg all the time
+    cli                         ; If there is no cli, will print LoadingMsg all the time
 
     xor ax, ax
     mov ds, ax
