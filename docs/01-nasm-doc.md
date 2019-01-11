@@ -7,6 +7,9 @@
 # Instructions
 
 - `loop`: Performs a loop operation using the RCX,ECX, or CX register as a counter.
+- `%include "stdio.inc"`: pre include a file. https://www.nasm.us/doc/nasmdoc2.html#section-2.1.18
+- `%ifdef`: https://www.nasm.us/doc/nasmdoc4.html#section-4.4.1
+- `%define`: https://www.nasm.us/doc/nasmdoc4.html#section-4.1.1
 
 # Reference
 
