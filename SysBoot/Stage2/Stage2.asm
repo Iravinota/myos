@@ -23,6 +23,8 @@ start:
 
 %include "stdio.inc"            ; basic i/o routines
 %include "bootinfo.inc"         ; multiboot_info struct
+%include "A20.inc"              ; call _EnableA20
+%include "Gdt.inc"              ; call InstallGDT
 
 ;*******************************************************
 ;    Data Section
@@ -85,7 +87,7 @@ main:
 
     mov     [boot_info+multiboot_info.bootDevice], dl
     
-    call    _EnableA20
+    call    _EnableA20              ; A20.inc
     call    InstallGDT
     sti
 
