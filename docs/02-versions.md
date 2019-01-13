@@ -56,3 +56,23 @@ The things that version did.
 ### References
 
 - multiboot_info, BiosGetMemorySize64MB <http://www.brokenthorn.com/Resources/OSDev17.html>
+
+## MyOS v0.0.7
+
+### Changes
+
+- Load another file(B.TXT) from floppy disk into memory 0x3000 by Stage2.asm->KRNLDR.SYS
+
+### Bochs debug
+
+- In Stage2 Directory: `nasm Stage2.asm -o KRNLDR.SYS`
+- In Stage2 Directory: `copy /Y KRNLDR.SYS  A:\`
+- In Stage2 Directory: `copy /Y a.txt  A:\`
+- In Stage2 Directory: `copy /Y b.txt  A:\`
+- Bochs: `lb 0x0500`
+- Go to the last *hlt* command
+- Click *F7* and enter `0x3000`
+- *ECX* contains the file size in sectors
+- Change the value of 'ImageName' in common.inc can load different files into 0x3000
+
+![b.txt](img/2019-01-13-22-44-18.png)

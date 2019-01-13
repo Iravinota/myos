@@ -26,6 +26,8 @@ start:
 %include "A20.inc"              ; call _EnableA20
 %include "Gdt.inc"              ; call InstallGDT
 %include "Memory.inc"           ; Physical Memory information
+%include "Fat12.inc"            ; Fat12 formatted floppy disk
+%include "common.inc"           ; Define ImageName and Kernal's base address
 
 ;*******************************************************
 ;    Data Section
@@ -89,10 +91,10 @@ main:
     mov     [boot_info+multiboot_info.bootDevice], dl
     
     call    _EnableA20              ; A20.inc, we can access more than 20 address lines
-    call    InstallGDT
+    call    InstallGDT              ; Gdt.inc. GDT is in some place above 0x0500 (gdtr stores its address)
     sti
 
-    ; get the physical memory size (KB) and set it to 'multiboot_info' struct
+    ; Eric - Get the physical memory size (KB) and set it to 'multiboot_info' struct
     xor     eax, eax
     xor     ebx, ebx
     call    BiosGetMemorySize64MB   ; Memory.inc, Physical memory
@@ -102,12 +104,35 @@ main:
 	mov		ecx, eax
 	pop		eax
 	add		eax, ecx
-	add		eax, 1024		; the routine doesnt add the KB between 0-1MB; add it
-
+	add		eax, 1024		        ; the routine doesnt add the KB between 0-1MB; add it
 	mov		dword [boot_info+multiboot_info.memoryHi], 0
 	mov		dword [boot_info+multiboot_info.memoryLo], eax
 
+    ; Eric - Now we get the physical memory size from BIOS. But not all of this memory is available to us.
+    ; Get memory map to 0000:1000. What's the use?
+    mov		eax, 0x0
+	mov		es, ax                  ; Eric - NOT: mov ds, ax
+	mov		di, 0x1000
+	call	BiosGetMemoryMap        ; Memory.inc, memory map
 
+    ; Load file 'ImageName' into memory EBX:EBP(0000:3000)
+    call    LoadRoot                ; Fat12.inc. Load RootDirecoryTable into 0x2E00 - tmp use
+    mov     ebx, 0
+    mov     ebp, IMAGE_RMODE_BASE   ; common.inc. 0x3000
+    mov 	esi, ImageName          ; common.inc, KRNL32.EXE
+	call    LoadFile		        ; load another file who's name is 'ImageName' into 0x3000
+    mov   	dword [ImageSize], ecx  ; ECX is files size in sectors
+    cmp		ax, 0                   ; LoadFile is sucess if ax is 0
+    je		EnterStage3
+    mov		si, msgFailure
+	call   	Puts16
+	mov		ah, 0
+
+    ;-------------------------------;
+	;   Go into pmode               ;
+	;-------------------------------;
+
+EnterStage3:
 
     hlt
 
