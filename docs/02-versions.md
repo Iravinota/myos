@@ -6,8 +6,6 @@ The things that version did.
 
 - See readme.md to install and configurate all the softwares.
 
-----
-
 ## MyOS v0.0.4
 
 ### In Stage1 Directory
@@ -27,8 +25,6 @@ The things that version did.
 - The KRNLDR.SYS file is loaded by Boot1.bin to 0050:0000 address
 - At the end of *Boot1.bin*, it *retf* to 0050:0000 address to execute
 
-----
-
 ## MyOS v0.0.5
 
 ### Changes
@@ -42,4 +38,21 @@ The things that version did.
 
 - After InstallDGT, we can click *view-->GDT* to see the GDT
 
-![](img/2019-01-13-00-31-04.png)
+![gdt](img/2019-01-13-00-31-04.png)
+
+## MyOS v0.0.6
+
+### Changes
+
+- Check physical memory size: BiosGetMemorySize64MB in Memory.inc
+
+### Bochs debug
+
+- `lb 0x06f8`: before hlt, after 0x0500
+- *eax* register contains the total size of the physical memory (bochs default: 32M, see Bochs-2.6.9/bochsrc-sample.txt line-340)
+
+![eax](img/2019-01-13-18-07-02.png)
+
+### References
+
+- multiboot_info, BiosGetMemorySize64MB <http://www.brokenthorn.com/Resources/OSDev17.html>

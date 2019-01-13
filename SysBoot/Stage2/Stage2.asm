@@ -25,6 +25,7 @@ start:
 %include "bootinfo.inc"         ; multiboot_info struct
 %include "A20.inc"              ; call _EnableA20
 %include "Gdt.inc"              ; call InstallGDT
+%include "Memory.inc"           ; Physical Memory information
 
 ;*******************************************************
 ;    Data Section
@@ -87,9 +88,26 @@ main:
 
     mov     [boot_info+multiboot_info.bootDevice], dl
     
-    call    _EnableA20              ; A20.inc
+    call    _EnableA20              ; A20.inc, we can access more than 20 address lines
     call    InstallGDT
     sti
+
+    ; get the physical memory size (KB) and set it to 'multiboot_info' struct
+    xor     eax, eax
+    xor     ebx, ebx
+    call    BiosGetMemorySize64MB   ; Memory.inc, Physical memory
+    push	eax
+	mov		eax, 64
+	mul		ebx
+	mov		ecx, eax
+	pop		eax
+	add		eax, ecx
+	add		eax, 1024		; the routine doesnt add the KB between 0-1MB; add it
+
+	mov		dword [boot_info+multiboot_info.memoryHi], 0
+	mov		dword [boot_info+multiboot_info.memoryLo], eax
+
+
 
     hlt
 
