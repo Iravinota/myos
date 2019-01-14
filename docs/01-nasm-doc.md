@@ -16,8 +16,10 @@ This is a documentation about NASM language.
 - `%ifdef`: <https://www.nasm.us/doc/nasmdoc4.html#section-4.4.1>
 - `%define`: <https://www.nasm.us/doc/nasmdoc4.html#section-4.1.1>
 - `istruc`, `at`, `iend`: <https://www.nasm.us/doc/nasmdoc4.html#section-4.11.12>
+- `jmp`: near jump, far jump, <file:///E:/books/Intel%20Mannul/64-IA-32-architectures-software-developer-2-instruction-set-reference-manual-325383.pdf>, JMP-Jump
 
 ## References
 
 - <https://en.wikipedia.org/wiki/BIOS_interrupt_call> - BIOS Call List
 - <http://www.ctyme.com/rbrown.htm> - Interrupt Table, Click *Interrupt*
+- [x86 Instruction Set Reference](https://c9x.me/x86/)

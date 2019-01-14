@@ -3,6 +3,8 @@
 ;		-Input/Output routines
 ;
 ;	OS Development Series
+;
+;   Ref: VGA: http://www.brokenthorn.com/Resources/OSDev10.html
 ;*************************************************
 
 %ifndef __STDIO_INC_67343546FDCC56AAB872_INCLUDED__
@@ -102,5 +104,26 @@ Putch32:
 	popa
 	ret
 
+;**************************************************;
+;	ClrScr32 ()
+;		- Clears screen
+;**************************************************;
+
+bits 32
+
+ClrScr32:
+
+	pusha
+	cld                         ; Clears the DF flag in the EFLAGS register. When the DF flag is set to 0, string operations increment the index registers (ESI and/or EDI).
+	mov	edi, VIDMEM             ; BIOS set video memory to 0xB8000
+	mov	cx, 2000                ; 25*80
+	mov	ah, CHAR_ATTRIB
+	mov	al, ' '	
+	rep	stosw                   ; rep:   Repeats a string instruction the number of times specified in the count register ((E)CX) or until the indicated condition of the ZF flag is no longer met
+                                ; stosw: Store AX at address ES:(E)DI.
+	mov	byte [_CurX], 0
+	mov	byte [_CurY], 0
+	popa
+	ret
 
 %endif ;__STDIO_INC_67343546FDCC56AAB872_INCLUDED__

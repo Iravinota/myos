@@ -134,5 +134,41 @@ main:
 
 EnterStage3:
 
+    cli                             ; clear interrupts
+    mov eax, cr0                    ; set bit 0 in cr0 -- **enter pmode**
+    or  eax, 1
+    mov cr0, eax
+
+    jmp CODE_DESC:Stage3            ; Gdt.inc, CODE_DESC is 0x8, code descriptor
+                                    ; After this far jump, CS is set to 0x0008, which is the CODE descriptor in GDT.
+                                    ; And EIP is set to Stage3 
+
+    ; Note: Do NOT re-enable interrupts! Doing so will triple fault!
+	; We will fix this in Stage 3.
+
+    ; Eric - After enter Protected Mode, we use Descriptor:Address instead of segment:offset for addressing
+
+;******************************************************
+;	ENTRY POINT FOR STAGE 3
+;******************************************************
+
+bits 32
+
+BadImage db "*** FATAL: Invalid or corrupt kernel image. Halting system.", 0
+
+Stage3:
+
+    ;-------------------------------;
+	;   Set registers. We will use Descriptor:Address for addressing
+	;-------------------------------;
+
+	mov	ax, DATA_DESC		; set data segments to data selector (0x10)
+	mov	ds, ax
+	mov	ss, ax
+	mov	es, ax
+	mov	esp, 9000h		    ; stack begins from 90000h
+
+    call	ClrScr32        ; stdio.inc, clean the screen, but the cursor is not moved
+
     hlt
 

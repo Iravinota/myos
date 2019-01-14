@@ -76,3 +76,15 @@ The things that version did.
 - Change the value of 'ImageName' in common.inc can load different files into 0x3000
 
 ![b.txt](img/2019-01-13-22-44-18.png)
+
+## MyOS v0.0.8
+
+### Changes
+
+- Enter protected mode. Now we will use descriptor:address to addressing. The descriptor (also called selector) is in GDT. We now installed 3 descriptors: NULL_DESC(0x00), CODE_DESC(0x08), DATA_DESC(0x10), which offset is relative to GDTR register.
+- Use `jmp CODE_DESC:Stage3` to far jump to Stage3. This instruction will set CS register to CODE_DESC descriptor. We now set the CODE_DESC's base address is 0x0000, so we can jump to Stage3. If we set CODE_DESC's base low address to 1, this instruction will jump to Stage3's next instruction. You can try it by yourself.
+- Clear screen
+
+### References
+
+- [jmp instruction](https://c9x.me/x86/html/file_module_x86_id_147.html)

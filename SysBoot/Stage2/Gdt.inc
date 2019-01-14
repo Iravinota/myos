@@ -61,8 +61,8 @@ toc:
 
 
 ; give the descriptor offsets names
-%define NULL_DESC 0
-%define CODE_DESC 0x8
-%define DATA_DESC 0x10
+%define NULL_DESC 0                 ; null descriptor
+%define CODE_DESC 0x8               ; code descriptor
+%define DATA_DESC 0x10              ; data descriptor
 
 %endif ;__GDT_INC_67343546FDCC56AAB872_INCLUDED__
