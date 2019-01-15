@@ -79,12 +79,30 @@ The things that version did.
 
 ## MyOS v0.0.8
 
+At staring, the BIOS set the address space into some regions. Each region define something. This is called Memory-mapping.
+
+![memory-mapping](img/2019-01-15-21-10-53.png)
+
+The BIOS also set each devices (register in devices) a number, which is called port number. When we use `in` or `out` instrunctions, we communicate with these devivces. This is called Port-mapped I/O.
+
 ### Changes
 
 - Enter protected mode. Now we will use descriptor:address to addressing. The descriptor (also called selector) is in GDT. We now installed 3 descriptors: NULL_DESC(0x00), CODE_DESC(0x08), DATA_DESC(0x10), which offset is relative to GDTR register.
 - Use `jmp CODE_DESC:Stage3` to far jump to Stage3. This instruction will set CS register to CODE_DESC descriptor. We now set the CODE_DESC's base address is 0x0000, so we can jump to Stage3. If we set CODE_DESC's base low address to 1, this instruction will jump to Stage3's next instruction. You can try it by yourself.
 - Clear screen
 
+### Bochs debug
+
+- Look 0xB8000 liner memory dump. At the Bochs start, it's all *FF*. When some characters were print on screen, we can see this dump has the same character.
+- `lb 0x0500`, *F7* and enter `0xB8000`, we can see the same character:
+
+![same-character](img/2019-01-15-20-20-38.png)
+
+- After we clear the screen, this is also changed.
+
 ### References
 
 - [jmp instruction](https://c9x.me/x86/html/file_module_x86_id_147.html)
+- [Memory Map (X86)](https://wiki.osdev.org/Memory_Map_(x86))
+- [I/O Ports](https://wiki.osdev.org/I/O_Ports)
+- [Bochs I/O ports](http://bochs.sourceforge.net/techspec/PORTS.LST)

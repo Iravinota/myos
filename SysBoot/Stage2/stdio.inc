@@ -5,6 +5,8 @@
 ;	OS Development Series
 ;
 ;   Ref: VGA: http://www.brokenthorn.com/Resources/OSDev10.html
+;        - [I/O Ports](https://wiki.osdev.org/I/O_Ports)
+;        - [Bochs I/O ports](http://bochs.sourceforge.net/techspec/PORTS.LST)
 ;*************************************************
 
 %ifndef __STDIO_INC_67343546FDCC56AAB872_INCLUDED__
@@ -101,6 +103,78 @@ Putch32:
 	inc	byte [_CurY]		; go to next row
 
 .done:
+	popa
+	ret
+
+;**************************************************;
+;	UpdateCur () - Eric
+;		- Update hardware cursor by _CurY and _CurX
+;**************************************************;
+
+bits 32
+
+UpdateCur:
+    pusha
+    mov bh, byte [_CurY]
+    mov bl, byte [_CurX]
+    call MovCur
+    popa
+    ret
+
+;**************************************************;
+;	MoveCur ()
+;		- Update hardware cursor. Eric - Cursor was controlled by CRT Microcontroller(0x3D5)
+;	parm/ bh = Y pos
+;	parm/ bl = x pos
+;
+;   Ref: http://www.brokenthorn.com/Resources/OSDev10.html
+;**************************************************;
+
+bits 32
+
+MovCur:
+
+	pusha
+
+	;-------------------------------;
+	;   Get current position        ;
+	;-------------------------------;
+
+	; location = _CurX + _CurY * COLS
+
+	xor	eax, eax
+	mov	ecx, COLS
+	mov	al, bh			; get y pos
+	mul	ecx			; multiply y*COLS
+	add	al, bl			; Now add x
+	mov	ebx, eax
+
+	;--------------------------------------;
+	;   Set low byte index to VGA register ;
+	;--------------------------------------;
+
+	mov	al, 0x0f
+	mov	dx, 0x03D4
+	out	dx, al
+
+	mov	al, bl
+	mov	dx, 0x03D5
+	out	dx, al			; low byte
+
+	;---------------------------------------;
+	;   Set high byte index to VGA register ;
+	;---------------------------------------;
+
+	xor	eax, eax
+
+	mov	al, 0x0e
+	mov	dx, 0x03D4
+	out	dx, al
+
+	mov	al, bh
+	mov	dx, 0x03D5
+	out	dx, al			; high byte
+
 	popa
 	ret
 

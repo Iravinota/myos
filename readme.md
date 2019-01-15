@@ -74,6 +74,7 @@ info:        action=report
 - <https://en.wikipedia.org/wiki/BIOS_interrupt_call> - BIOS Call List
 - <http://www.ctyme.com/rbrown.htm> - Interrupt Table, Click *Interrupt*
 - [x86 Instruction Set Reference](https://c9x.me/x86/)
+- [OSDev](https://wiki.osdev.org/Main_Page) - A useful site for os developing
 
 ## Records
 

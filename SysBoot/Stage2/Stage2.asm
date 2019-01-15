@@ -169,6 +169,7 @@ Stage3:
 	mov	esp, 9000h		    ; stack begins from 90000h
 
     call	ClrScr32        ; stdio.inc, clean the screen, but the cursor is not moved
+    call    UpdateCur       ; Eric - Update cursor to some position
 
     hlt
 
