@@ -154,6 +154,8 @@ EnterStage3:
 
 bits 32
 
+%include "Paging.inc"           ; Enable Paging. Must below btis 32 function
+
 BadImage db "*** FATAL: Invalid or corrupt kernel image. Halting system.", 0
 
 Stage3:
@@ -170,6 +172,8 @@ Stage3:
 
     call	ClrScr32        ; stdio.inc, clean the screen, but the cursor is not moved
     call    UpdateCur       ; Eric - Update cursor to some position
+
+    call    EnablePaging    ; cr3 stores the PageTable's base address. cr0's 31 bit set to 1 means using paging.
 
     hlt
 

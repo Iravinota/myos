@@ -106,3 +106,37 @@ The BIOS also set each devices (register in devices) a number, which is called p
 - [Memory Map (X86)](https://wiki.osdev.org/Memory_Map_(x86))
 - [I/O Ports](https://wiki.osdev.org/I/O_Ports)
 - [Bochs I/O ports](http://bochs.sourceforge.net/techspec/PORTS.LST)
+
+## MyOS v0.0.9
+
+Paging.
+
+![paging](img/2019-01-15-21-36-52.png)
+
+Set **CR0** register's 31 bit to 1 will enable paging, and use **CR3** as Page Directory Base Register(PDBR) which stores the base address of Page Directory.
+
+When use paging addressing, the virtual address format is: `directory index(10 bits) + page table index(10 bit) + offset into page(12 bits)`.
+
+The `directory index` looks the *Page Directory* in Page Directory Table. The `page table index` looks the *Page Entry* in Page Table. These two changes the virtual address to a physicall address. Then add the `offset into page` to find the real address.
+
+*Page Diercotry* and *Page Entry* are both 32-bits(4-Bytes) length. So the total Page Directory table's size is 4KB, and each Page Table's size is 4KB.
+
+*Page Directory* is also called *Page Directory Table Entry*, or **PDE**. PDE's right-most 12-bits determines it's Page Table's privaledeg. PDE's other bits denotes the Page Table's physicall address. For example, one PDE is *0000 0000 0000 1001 1110-0000 0000 0000* or *0x0009-E000*, no matter what the left-most 12-bits are, this PDE points to a Page Table at physicall address 0x0009-E000.
+
+*Page Entry* is alse called *Page Table Entry*, or **PTE**. PTE's format is farmilar with the PDE's. For example, one PTE is *0000 0000 0001 0000 0000-0000 0000 0000* or *0x0010-0000*, no matter what the left-most 12-bits are, this PTE points to a physicall address 0x0010-0000(1M).
+
+In our MyOS's *Paging.inc* file, we set the 768th PDE point a Page Table whose address at 0x0009-E000. And the 0th PTE in this table points to physicall address 0x0010-0000. So, when we want to access virtual address *0xC000-0000*(3G), or *1100 0000 00-00 0000 0000-0000 0000 0000*, the left-most 10-bits determines we will find the 768th PDE, the middle 10-bits determines we will find the 0th PTE. The PDE's value is 0x0009-E00**7**, we known the Page Table is at physicall address 0x0009-E000. When we find this PTE, it's value is 0x0010-000**7**, which means the physicall address is 0x0010-0000. (The PDE or PTE's right-most 12-bits is privaledge value, not address value)
+
+The *Page Directory Table* and all the *Page Table* are 4KB aligned
+
+### Changes
+
+- Enable paging.
+
+### Bochs debug
+
+- `lb 0x0500`, `c`
+- Double click the last instruction hlt. `c`
+- Click *view->PageTable*, we can see the PageTable:
+
+![pagetable](img/2019-01-17-21-26-50.png)
