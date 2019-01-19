@@ -159,6 +159,28 @@ Copy from pyhsical address 0x3000 to 0x10-0000. In our paging settings, virtual 
 
 ![PageTable](img/2019-01-19-10-24-22.png)
 
-- At last intruction hlt, the value at physical address 0x10-0000 is the same as 0x3000:
+- At last intruction hlt, the value at physical address 0x10-0000 (or liner address 0xc000-0000) is the same as 0x3000:
 
 ![CopyedImage](img/2019-01-19-10-27-20.png)
+
+## MyOS v0.0.11
+
+Test file ImageName(Now is B.TXT).
+
+### Changes
+
+- Compare file ImageName's 60th byte with 'PE'
+- We set B.TXT's 60, 61, 62, 63th bytes to 0x00000001. This is because the Stage2.asm#TestImage's cmpsw instruction will compare DS:SI with ES:DI, so we set B.TXT for setting ESI to 0xC000-0001.
+
+![b.txt reset](img/2019-01-19-11-27-16.png)
+
+### Bochs debug
+
+- `copy /Y b.txt A:\`
+- run
+
+![can't find kernel](img/2019-01-19-11-29-24.png)
+
+- If we set B.TXT's 1, 2th bytes to 'PE', it will not print this wrong infomation. Out program will think this file is a PE file. You can test it.
+
+![PE](img/2019-01-19-11-39-42.png)

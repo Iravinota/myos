@@ -191,5 +191,20 @@ CopyImage:
     mov	ecx, eax
     rep	movsd                   ; copy image to its protected mode address. Eric - move from DS:SI -> ES:DI
 
+TestImage:
+    mov    ebx, [IMAGE_PMODE_BASE+60]
+    add    ebx, IMAGE_PMODE_BASE    ; ebx now points to file sig (PE00)
+    mov    esi, ebx
+    mov    edi, ImageSig
+    cmpsw                           ; compare word at DS:SI with ES:DI
+    je     EXECUTE
+    mov	   ebx, BadImage
+    call   Puts32
+    cli
     hlt
 
+ImageSig db 'PE'
+
+EXECUTE:
+
+    hlt

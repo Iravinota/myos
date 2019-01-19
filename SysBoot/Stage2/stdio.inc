@@ -107,6 +107,54 @@ Putch32:
 	ret
 
 ;**************************************************;
+;	Puts32 ()
+;		- Prints a null terminated string
+;	parm\ EBX = address of string to print
+;**************************************************;
+
+Puts32:
+
+	pusha
+	push	ebx			; copy the string address
+	pop	edi
+
+.loop:
+
+	;-------------------------------;
+	;   Get character               ;
+	;-------------------------------;
+
+	mov	bl, byte [edi]		; get next character
+	cmp	bl, 0			; is it 0 (Null terminator)?
+	je	.done			; yep-bail out
+
+	;-------------------------------;
+	;   Print the character         ;
+	;-------------------------------;
+
+	call	Putch32			; Nope-print it out
+
+	;-------------------------------;
+	;   Go to next character        ;
+	;-------------------------------;
+
+	inc	edi			; go to next character
+	jmp	.loop
+
+.done:
+
+	;-------------------------------;
+	;   Update hardware cursor      ;
+	;-------------------------------;
+
+	mov	bh, byte [_CurY]	; get current position
+	mov	bl, byte [_CurX]
+	call	MovCur			; update cursor
+
+	popa				; restore registers, and return
+	ret
+
+;**************************************************;
 ;	UpdateCur () - Eric
 ;		- Update hardware cursor by _CurY and _CurX
 ;**************************************************;
@@ -197,6 +245,22 @@ ClrScr32:
                                 ; stosw: Store AX at address ES:(E)DI.
 	mov	byte [_CurX], 0
 	mov	byte [_CurY], 0
+	popa
+	ret
+
+;**************************************************;
+;	GotoXY ()
+;		- Set current X/Y location
+;	parm\	AL=X position
+;	parm\	AH=Y position
+;**************************************************;
+
+bits 32
+
+GotoXY:
+	pusha
+	mov	[_CurX], al
+	mov	[_CurY], ah
 	popa
 	ret
 
