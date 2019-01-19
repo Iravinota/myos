@@ -2,7 +2,7 @@
 %define _COMMON_INC_INCLUDED
 
 ; where the kernel is to be loaded to in protected mode
-%define IMAGE_PMODE_BASE 0xC0000000		;0x100000
+%define IMAGE_PMODE_BASE 0xC0000000		; vitural address 0xC000-0000(3G) mapped to real address 0x10-0000(1M)
 
 ; where the kernel is to be loaded to in real mode
 %define IMAGE_RMODE_BASE 0x3000

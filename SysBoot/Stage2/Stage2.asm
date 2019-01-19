@@ -173,7 +173,23 @@ Stage3:
     call	ClrScr32        ; stdio.inc, clean the screen, but the cursor is not moved
     call    UpdateCur       ; Eric - Update cursor to some position
 
-    call    EnablePaging    ; cr3 stores the PageTable's base address. cr0's 31 bit set to 1 means using paging.
+    call    EnablePaging    ; Paging.inc. cr3 stores the PageTable's base address. cr0's 31 bit set to 1 means using paging.
+
+CopyImage:
+    mov	eax, dword [ImageSize]  ; common.inc
+    movzx	ebx, word [bpbBytesPerSector]   ; Floppy16.inc included by Fat12.inc
+    mul	ebx
+    mov	ebx, 4
+    div	ebx
+    ; move from DS:SI(DATA_DESC(0):0x3000) to ES:DI(DATA_DESC(0):0xC000-0000). 
+    ; This is Descriptor:Address addressing, DATA_DESC is data selector, which denotes 0
+    ; When addressing, it will use Paging. Virtual address 0x3000 is mapped to physicall address 0x3000, and virtual address 0xC000-0000 is mapped to physicall address 0x10-0000
+    ; So, the value in physical address 0x3000 is copied to 0x10-0000
+    cld
+    mov esi, IMAGE_RMODE_BASE   ; common.inc. Move from
+    mov	edi, IMAGE_PMODE_BASE
+    mov	ecx, eax
+    rep	movsd                   ; copy image to its protected mode address. Eric - move from DS:SI -> ES:DI
 
     hlt
 

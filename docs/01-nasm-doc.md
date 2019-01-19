@@ -17,6 +17,10 @@ This is a documentation about NASM language.
 - `%define`: <https://www.nasm.us/doc/nasmdoc4.html#section-4.1.1>
 - `istruc`, `at`, `iend`: <https://www.nasm.us/doc/nasmdoc4.html#section-4.11.12>
 - `jmp`: near jump, far jump, <file:///E:/books/Intel%20Mannul/64-IA-32-architectures-software-developer-2-instruction-set-reference-manual-325383.pdf>, JMP-Jump
+- `cld`: [Clears the DF flag in the EFLAGS register. When the DF flag is set to 0, string operations increment the index registers (ESI and/or EDI).](https://c9x.me/x86/html/file_module_x86_id_29.html)
+- `movsd`: [Move doubleword at address DS:(E)SI to address ES:(E)DI](https://c9x.me/x86/html/file_module_x86_id_203.html)
+- `rep`: [Repeats a string instruction the number of times specified in the count register ((E)CX)](https://c9x.me/x86/html/file_module_x86_id_279.html)
+
 
 ## References
 

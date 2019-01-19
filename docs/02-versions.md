@@ -140,3 +140,25 @@ The *Page Directory Table* and all the *Page Table* are 4KB aligned
 - Click *view->PageTable*, we can see the PageTable:
 
 ![pagetable](img/2019-01-17-21-26-50.png)
+
+## MyOS v0.0.10
+
+Copy from pyhsical address 0x3000 to 0x10-0000. In our paging settings, virtual address 0x3000 is mapped to physical address 0x3000, and virtual address 0xC000-0000 is mapped to physical address 0x10-0000. See *PageTable* in Bochs.
+
+### Bochs debug
+
+- Stop at Stage2.asm#CopyImage, and check the value at physical address 0x3000:
+
+![CopyImage](img/2019-01-19-10-22-39.png)
+
+- Check the GDT:
+
+![GDT](img/2019-01-19-10-23-42.png)
+
+- Check the PageTable:
+
+![PageTable](img/2019-01-19-10-24-22.png)
+
+- At last intruction hlt, the value at physical address 0x10-0000 is the same as 0x3000:
+
+![CopyedImage](img/2019-01-19-10-27-20.png)
