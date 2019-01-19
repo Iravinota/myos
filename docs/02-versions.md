@@ -184,3 +184,11 @@ Test file ImageName(Now is B.TXT).
 - If we set B.TXT's 1, 2th bytes to 'PE', it will not print this wrong infomation. Out program will think this file is a PE file. You can test it.
 
 ![PE](img/2019-01-19-11-39-42.png)
+
+## MyOS v0.0.12
+
+Execute kernel.
+
+### Changes
+
+- After the PE file was loaded to virtual address 0xC000-0000 (physical address 0x10-0000), we will execute the file by checking it's [PE format](http://www.4hou.com/system/7782.html).
