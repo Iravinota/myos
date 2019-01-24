@@ -60,7 +60,7 @@
   - It's Command Line:
 
   ``` text
-  /OUT:"A:\KERL32.EXE" /INCREMENTAL:NO /NOLOGO "H:\SysCore\Debug\Lib.lib" /NODEFAULTLIB /MANIFEST:NO /ManifestFile:"Debug\Kernel.exe.intermediate.manifest" /ALLOWISOLATION /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"H:\SysCore\Debug\Kernel.pdb" /MAP":Kernel.map" /SUBSYSTEM:NATIVE /Driver /OPT:REF /OPT:ICF /PGD:"H:\SysCore\Debug\Kernel.pgd" /TLBID:1 /ENTRY:"kernel_entry" /BASE:"0x100000" /FIXED:NO /MACHINE:X86 /ERRORREPORT:QUEUE /ALIGN:512
+  /OUT:"A:\KRNL32.EXE" /INCREMENTAL:NO /NOLOGO "H:\SysCore\Debug\Lib.lib" /NODEFAULTLIB /MANIFEST:NO /ManifestFile:"Debug\Kernel.exe.intermediate.manifest" /ALLOWISOLATION /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"H:\SysCore\Debug\Kernel.pdb" /MAP":Kernel.map" /SUBSYSTEM:NATIVE /Driver /OPT:REF /OPT:ICF /PGD:"H:\SysCore\Debug\Kernel.pgd" /TLBID:1 /ENTRY:"kernel_entry" /BASE:"0x100000" /FIXED:NO /MACHINE:X86 /ERRORREPORT:QUEUE /ALIGN:512
   ```
 
 - Right click *Lib* --> *Properties*, click *General*, change *Configuration Type* to **Static Library (.lib)**.

@@ -8,7 +8,7 @@
 %define IMAGE_RMODE_BASE 0x3000
 
 ; kernel name
-ImageName     db "B       TXT"      ; KRNL32.EXE
+ImageName     db "KRNL32  EXE"      ; KRNL32.EXE
 
 ImageSize     db 0                  ; file size in sectors
 

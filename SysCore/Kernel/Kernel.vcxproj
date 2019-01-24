@@ -61,7 +61,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <OutputFile>A:\KERL32.EXE</OutputFile>
+      <OutputFile>A:\KRNL32.EXE</OutputFile>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
       <AdditionalDependencies>
@@ -74,7 +74,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <EntryPointSymbol>kernel_entry</EntryPointSymbol>
-      <BaseAddress>0x100000</BaseAddress>
+      <BaseAddress>0xc0000000</BaseAddress>
       <RandomizedBaseAddress>
       </RandomizedBaseAddress>
       <FixedBaseAddress>false</FixedBaseAddress>

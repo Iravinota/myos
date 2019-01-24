@@ -208,7 +208,7 @@ The Properties:
 - Kernel --> Linker:
 
 ``` text
-/OUT:"A:\KERL32.EXE" /INCREMENTAL:NO /NOLOGO "H:\SysCore\Debug\Lib.lib" /NODEFAULTLIB /MANIFEST:NO /ManifestFile:"Debug\Kernel.exe.intermediate.manifest" /ALLOWISOLATION /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"H:\SysCore\Debug\Kernel.pdb" /MAP":Kernel.map" /SUBSYSTEM:NATIVE /Driver /OPT:REF /OPT:ICF /PGD:"H:\SysCore\Debug\Kernel.pgd" /TLBID:1 /ENTRY:"kernel_entry" /BASE:"0x100000" /FIXED:NO /MACHINE:X86 /ERRORREPORT:QUEUE /ALIGN:512
+/OUT:"A:\KRNL32.EXE" /INCREMENTAL:NO /NOLOGO "H:\SysCore\Debug\Lib.lib" /NODEFAULTLIB /MANIFEST:NO /ManifestFile:"Debug\Kernel.exe.intermediate.manifest" /ALLOWISOLATION /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"H:\SysCore\Debug\Kernel.pdb" /MAP":Kernel.map" /SUBSYSTEM:NATIVE /Driver /OPT:REF /OPT:ICF /PGD:"H:\SysCore\Debug\Kernel.pgd" /TLBID:1 /ENTRY:"kernel_entry" /BASE:"0x100000" /FIXED:NO /MACHINE:X86 /ERRORREPORT:QUEUE /ALIGN:512
 ```
 
 - Lib --> C/C++:
@@ -216,3 +216,17 @@ The Properties:
 ``` text
 /Zi /nologo /W1 /WX- /O2 /Oy- /D "ARCH_X86" /Gm- /EHsc /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fp"Debug\Lib.pch" /Fa"Debug\" /Fo"Debug\" /Fd"Debug\vc100.pdb" /Gd /analyze- /errorReport:queue
 ```
+
+### Bochs Debug
+
+- `partcopy Boot1.bin 0 200 -f0`
+- `copy /Y KRNLDR.SYS  A:\`
+- Rebuild Kernel in VC++ 2010
+- start Bochs
+- `lb 0x0500`
+- `lb 0x0a10`: Stage2.asm line 140, set cr0. The 'ImageName' has alread been loaded to 0x3000.
+- `lb 0x0ad4`: Stage2.asm line 179, start CopyImage
+- `lb 0x0af8`: Stage2.asm line 179, start TestImage. The 'ImageName' has been copied to 0xc000-0000(Virtual address, it's physical address is 0x10-0000)
+- `lb 0x0b45`: Stage2.asm line 233, Call the Kernel.exe
+- You can see the 0xC000-0000 dump memory is the same as A:\KRNL32.EXE.
+- The KRNL32.EXE's entry point is at 0x400 offset the base address. It's 0xC000-0400.
