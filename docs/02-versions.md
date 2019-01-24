@@ -192,3 +192,34 @@ Execute kernel.
 ### Changes
 
 - After the PE file was loaded to virtual address 0xC000-0000 (physical address 0x10-0000), we will execute the file by checking it's [PE format](http://www.4hou.com/system/7782.html).
+
+### MS VC++ SetUp
+
+- *File* --> *New* --> *Project*, chose *Empty Project*
+- One *Solution* can contain more than one *Project*.
+- Create *Kernel* and *Lib* **empty project** in one *Solution*. Create some *.cpp* file.
+- In the *Solution Explorer*, right click on one *Kernel*, click *Properties*.
+  - General --> Configuration Type: **Application(.exe)**
+  - C/C++ --> General --> Debug Information Format: *Set to empty*
+  - C/C++ --> General --> Warning Level: /Wall
+  - C/C++ --> Preprocessor --> Preprocessor Definitions: **ARCH_X86**
+  - C/C++ --> Preprocessor --> Ignore Standard Include Path: Yes (/Y)
+  - C/C++ --> Code Generation --> Enable C++ Exceptions: No
+  - C/C++ --> Code Generation --> Struct Member Alignment: 1 Byte (/Zp1)
+  - C/C++ --> Code Generation --> Buffer Security Check: No (/GS-)
+  - C/C++ --> Language --> Enable Run-Time Type Info: No (/GR-)
+  - The linker produces a linker map with all of these symbolic names.
+  - Linker --> General --> Output File: A:\KRNL32.EXE (For quick test)
+  - Linker --> Input --> Additional Dependencies: Set to empty.
+  - Linker --> Input --> Ignore All Default Libraries: Yes (/NODEFAULTLIB)
+  - Linker --> Debugging --> Generate Map File: Yes (/MAP)
+  - Linker --> Debugging --> Map File Name: Kernel.map
+  - Linker --> System --> SubSystem: Native (/SUBSYSTEM:NATIVE)
+  - Linker --> System --> Driver: Driver (/DRIVER)
+  - Linker --> Optimization --> Refrences: Yes (reduce kernel size)
+  - Linker --> Optimization --> Enable COMDAT folding: Yes (reduce kernel size)
+  - Linker --> Advanced --> Entry Point: kernel_entry
+  - Linker --> Advanced --> Base Address: 0x100000
+  - Linker --> Advanced --> Fixed Base Address: No
+  - Linker --> Command Line --> Additional options: /ALIGN:512
+- In the *Solution Explorer*, right click on one *Lib*, click *Properties*.
