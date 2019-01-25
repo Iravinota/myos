@@ -195,7 +195,7 @@ Execute kernel.
 
 ### MS VC++ SetUp
 
-See 03-vcpp-setup.md for more information.
+See [03-vcpp-setup.md](./03-vcpp-setup.md) for more information.
 
 The Properties:
 
@@ -230,3 +230,7 @@ The Properties:
 - `lb 0x0b45`: Stage2.asm line 233, Call the Kernel.exe
 - You can see the 0xC000-0000 dump memory is the same as A:\KRNL32.EXE.
 - The KRNL32.EXE's entry point is at 0x400 offset the base address. It's 0xC000-0400.
+
+## The following versions
+
+[04-vcpp-versions.md](./04-vcpp-versions.md)
