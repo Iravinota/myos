@@ -1,6 +1,6 @@
  KRNL32
 
- Timestamp is 5c49b6c9 (Thu Jan 24 20:59:53 2019)
+ Timestamp is 5c51c80d (Wed Jan 30 23:51:41 2019)
 
  Preferred load address is c0000000
 
@@ -8,8 +8,8 @@
  0001:00000000 000000c8H .text                   CODE
  0002:00000000 00000004H .CRT$XCA                DATA
  0002:00000004 00000004H .CRT$XCZ                DATA
- 0002:00000008 00000008H .data                   DATA
- 0002:00000010 00000008H .bss                    DATA
+ 0002:00000008 0000001cH .data                   DATA
+ 0002:00000024 0000002cH .bss                    DATA
 
   Address         Publics by Value              Rva+Base       Lib:Object
 
@@ -21,7 +21,13 @@
  0001:00000090       ?InitializeConstructors@@YAXXZ c0000490 f   Lib:cstd.obj
  0002:00000000       ?__xc_a@@3PAP6AXXZA        c0000600     Lib:cstd.obj
  0002:00000004       ?__xc_z@@3PAP6AXXZA        c0000604     Lib:cstd.obj
- 0002:0000000c       __fltused                  c000060c     Lib:cstd.obj
+ 0002:00000008       ?video_memory@@3PAGA       c0000608     DebugDisplay.obj
+ 0002:0000000c       ?bchars@@3PADA             c000060c     DebugDisplay.obj
+ 0002:00000020       __fltused                  c0000620     Lib:cstd.obj
+ 0002:00000024       ?tbuf@@3PADA               c0000624     DebugDisplay.obj
+ 0002:00000044       ?cursor_x@@3EA             c0000644     DebugDisplay.obj
+ 0002:00000045       ?cursor_y@@3EA             c0000645     DebugDisplay.obj
+ 0002:00000046       ?_color@@3EA               c0000646     DebugDisplay.obj
 
  entry point at        0000:00000000
 

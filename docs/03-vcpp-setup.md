@@ -38,24 +38,36 @@
 
 - *Kernel Property Pages* --> *Configuration Properties* --> Linker
   - Linker --> General --> Output File: A:\KRNL32.EXE (For quick test)
+
   ![General](img/2019-01-23-21-44-04.png)
+
   - Linker --> Input --> Additional Dependencies: Set to empty.
   - Linker --> Input --> Ignore All Default Libraries: Yes (/NODEFAULTLIB)
+
   ![Input](img/2019-01-23-21-47-49.png)
   ![Manifest File](img/2019-01-23-21-48-40.png)
+  
   - Linker --> Debugging --> Generate Map File: Yes (/MAP)
   - Linker --> Debugging --> Map File Name: Kernel.map
+  
   ![Debugging](img/2019-01-23-21-54-03.png)
+  
   - Linker --> System --> SubSystem: Native (/SUBSYSTEM:NATIVE)
   - Linker --> System --> Driver: Driver (/DRIVER)
+  
   ![System](img/2019-01-23-21-56-40.png)
+  
   - Linker --> Optimization --> Refrences: Yes (reduce kernel size)
   - Linker --> Optimization --> Enable COMDAT folding: Yes (reduce kernel size)
+  
   ![Optimization](img/2019-01-23-21-57-43.png)
+  
   - Linker --> Advanced --> Entry Point: kernel_entry
   - Linker --> Advanced --> Base Address: 0x100000
   - Linker --> Advanced --> Fixed Base Address: No
+  
   ![Advanced](img/2019-01-23-21-59-33.png)
+  
   - Linker --> Command Line --> Additional options: /ALIGN:512
   - It's Command Line:
 

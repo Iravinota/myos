@@ -202,7 +202,7 @@ The Properties:
 - Kernel --> C/C++:
 
 ``` text
-/Zi /nologo /Wall /WX- /O2 /Oy /D "ARCH_X86" /X /Gm- /Zp1 /GS- /fp:precise /Zc:wchar_t /Zc:forScope /GR- /Fp"Debug\Kernel.pch" /FAs /Fa"Debug\" /Fo"Debug\" /Fd"Debug\vc100.pdb" /Gd /analyze- /errorReport:queue 
+/Zi /nologo /Wall /WX- /O2 /Oy /D "ARCH_X86" /X /Gm- /Zp1 /GS- /fp:precise /Zc:wchar_t /Zc:forScope /GR- /Fp"Debug\Kernel.pch" /FAs /Fa"Debug\" /Fo"Debug\" /Fd"Debug\vc100.pdb" /Gd /analyze- /errorReport:queue
 ```
 
 - Kernel --> Linker:

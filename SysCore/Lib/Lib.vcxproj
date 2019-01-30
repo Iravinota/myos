@@ -48,6 +48,7 @@
       </BasicRuntimeChecks>
       <RuntimeLibrary>
       </RuntimeLibrary>
+      <AdditionalIncludeDirectories>H:\SysCore\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -68,6 +69,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cstd.cpp" />
+    <ClCompile Include="string.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
