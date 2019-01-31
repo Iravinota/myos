@@ -31,7 +31,7 @@
 //    IMPLEMENTATION PRIVATE DATA
 //============================================================================
 
-//! video memory
+//! video memory. Eric - write character to video_memory can print it on the screen.
 uint16_t* video_memory = (uint16_t*)0xB8000;
 
 //! current position
@@ -61,7 +61,7 @@ void DebugUpdateCur(int x, int y) {
 	// get location
 	uint16_t cursorLocation = y * 80 + x;
 
-#if 0
+#if 1
 	// send location to vga controller to set cursor
 	disable();
 	outportb(0x3D4, 14);

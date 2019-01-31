@@ -1,13 +1,16 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28516.95
-MinimumVisualStudioVersion = 10.0.40219.1
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Kernel", "Kernel\Kernel.vcxproj", "{BDD73825-499A-4F22-BD1B-71726D6C3370}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1DA07193-9DEA-4BBC-BF4B-BAB923E249AB} = {1DA07193-9DEA-4BBC-BF4B-BAB923E249AB}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lib", "Lib\Lib.vcxproj", "{DE9CA9A6-17E0-42B0-B581-E4FBD35E422E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Include", "Include\Include.vcxproj", "{32229299-7538-452E-B82E-65B5855A4BCD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hal", "Hal\Hal.vcxproj", "{1DA07193-9DEA-4BBC-BF4B-BAB923E249AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,11 +30,12 @@ Global
 		{32229299-7538-452E-B82E-65B5855A4BCD}.Debug|Win32.Build.0 = Debug|Win32
 		{32229299-7538-452E-B82E-65B5855A4BCD}.Release|Win32.ActiveCfg = Release|Win32
 		{32229299-7538-452E-B82E-65B5855A4BCD}.Release|Win32.Build.0 = Release|Win32
+		{1DA07193-9DEA-4BBC-BF4B-BAB923E249AB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1DA07193-9DEA-4BBC-BF4B-BAB923E249AB}.Debug|Win32.Build.0 = Debug|Win32
+		{1DA07193-9DEA-4BBC-BF4B-BAB923E249AB}.Release|Win32.ActiveCfg = Release|Win32
+		{1DA07193-9DEA-4BBC-BF4B-BAB923E249AB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {ADDD6B01-7855-495B-ACF2-431E866BCD76}
 	EndGlobalSection
 EndGlobal

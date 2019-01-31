@@ -31,9 +31,9 @@ round up width of objects pushed on stack. The expression before the
 	((sizeof(TYPE) + sizeof(STACKITEM) - 1)	\
 		& ~(sizeof(STACKITEM) - 1))
 
-/* Eric - Returns the first position of the (...). For example, foo(int a, int b, ...),
+/* Eric - Set AP to the first position of the (...). For example, foo(int a, int b, ...),
    va_start returns the first position at ..., after int b.
-   AP: a pointer to the parameter list of type va_list
+   AP: a pointer
    &(LASTARG): points to the LEFTMOST argument of the function call (before the ...) 
 */
 #define	va_start(AP, LASTARG)	\
@@ -43,7 +43,7 @@ round up width of objects pushed on stack. The expression before the
 #define va_end(AP)
 
 /*
-Eric - Returns the next parameter in the parameter list.
+Eric - Set AP to the position after the TYPE, and Returns the next parameter in the parameter list whose type is TYPE.
 */
 #define va_arg(AP, TYPE)	\
 	(AP += VA_SIZE(TYPE), *((TYPE *)(AP - VA_SIZE(TYPE))))
