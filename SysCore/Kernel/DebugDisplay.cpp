@@ -13,7 +13,7 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <string.h>
-#include <hal.h>
+#include <Hal.h>
 
 //============================================================================
 //    IMPLEMENTATION PRIVATE DEFINITIONS / ENUMERATIONS / SIMPLE TYPEDEFS

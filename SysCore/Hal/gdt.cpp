@@ -13,6 +13,7 @@
 
 #include "gdt.h"
 #include <string.h>
+#include "../Kernel/DebugDisplay.h"
 
 //============================================================================
 //    IMPLEMENTATION PRIVATE DEFINITIONS / ENUMERATIONS / SIMPLE TYPEDEFS
@@ -120,6 +121,8 @@ int i86_gdt_initialize () {
 	//! set up gdtr
 	_gdtr.m_limit = (sizeof (struct gdt_descriptor) * MAX_DESCRIPTORS)-1;
 	_gdtr.m_base = (uint32_t)&_gdt[0];
+
+	DebugPrintf ("\naaa");
 
 	//! set null descriptor
 	gdt_set_descriptor(0, 0, 0, 0, 0);
