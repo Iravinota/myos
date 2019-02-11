@@ -52,3 +52,7 @@ The [02-versions.md](./02-versions.md) contains all the GRUB like versions. Now 
 
 - Hal#regs.h contains the CPU register's structure.
 - Hal#cpu.h and cpu.cpp contains some functions associated with CPU. The most important is the *i86_cpu_initialize()* function, which called GDT's and IDT's initialize function to install GDT and IDT in protected mode.
+
+### 2. Bochs
+
+![initialize](img/2019-02-11-22-46-22.png)
