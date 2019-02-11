@@ -66,6 +66,7 @@
     <ClInclude Include="size_t.h" />
     <ClInclude Include="stdarg.h" />
     <ClInclude Include="stdint.h" />
+    <ClInclude Include="stdio.h" />
     <ClInclude Include="string.h" />
     <ClInclude Include="va_list.h" />
     <ClInclude Include="_null.h" />

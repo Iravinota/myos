@@ -5,6 +5,7 @@
 ======================================
 */
 
+#include <Hal.h>
 #include "DebugDisplay.h"
 
 void _cdecl main () {
@@ -24,12 +25,15 @@ void _cdecl main () {
 	DebugSetColor (0x1F);
 	DebugPrintf ("[%i]",i);
 	DebugSetColor (0x12);
-	DebugPrintf ("\n    i in hex ............................");
-	DebugSetColor (0x1F);
-	DebugPrintf ("[0x%x]",i);
+	//DebugPrintf ("\n    i in hex ............................");
+	//DebugSetColor (0x1F);
+	//DebugPrintf ("[0x%x]",i);
 
-	DebugGotoXY (4,16);
-	DebugSetColor (0x1F);
-	DebugPrintf ("I am preparing to load... Hold on, please... :)");
+	//DebugGotoXY (4,16);
+	//DebugSetColor (0x1F);
+	//DebugPrintf ("I am preparing to load... Hold on, please... :)");
 
+	//hal_initialize();
+
+	//DebugPrintf ("\nhal initialized");
 }

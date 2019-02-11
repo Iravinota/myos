@@ -69,7 +69,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cpu.cpp" />
+    <ClCompile Include="gdt.cpp" />
     <ClCompile Include="Hal.cpp" />
+    <ClCompile Include="idt.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cpu.h" />
+    <ClInclude Include="gdt.h" />
+    <ClInclude Include="idt.h" />
+    <ClInclude Include="regs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

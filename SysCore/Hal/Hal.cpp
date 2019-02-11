@@ -19,10 +19,10 @@
 //============================================================================
 
 #include <Hal.h>
-//#include "cpu.h"
+#include "cpu.h"
 //#include "pic.h"
 //#include "pit.h"
-//#include "idt.h"
+#include "idt.h"
 
 //============================================================================
 //    IMPLEMENTATION PRIVATE DEFINITIONS / ENUMERATIONS / SIMPLE TYPEDEFS
@@ -59,7 +59,7 @@ int _cdecl hal_initialize () {
 	disable ();
 
 	//! initialize motherboard controllers and system timer
-	//i86_cpu_initialize ();
+	i86_cpu_initialize ();
 	//i86_pic_initialize (0x20,0x28);
 	//i86_pit_initialize ();
 	//i86_pit_start_counter (100,I86_PIT_OCW_COUNTER_0, I86_PIT_OCW_MODE_SQUAREWAVEGEN);
