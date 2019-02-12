@@ -1,3 +1,4 @@
+
 //****************************************************************************
 //**
 //**    gdt.cpp
@@ -13,7 +14,6 @@
 
 #include "gdt.h"
 #include <string.h>
-#include "../Kernel/DebugDisplay.h"
 
 //============================================================================
 //    IMPLEMENTATION PRIVATE DEFINITIONS / ENUMERATIONS / SIMPLE TYPEDEFS
@@ -122,8 +122,6 @@ int i86_gdt_initialize () {
 	_gdtr.m_limit = (sizeof (struct gdt_descriptor) * MAX_DESCRIPTORS)-1;
 	_gdtr.m_base = (uint32_t)&_gdt[0];
 
-	DebugPrintf ("\naaa");
-
 	//! set null descriptor
 	gdt_set_descriptor(0, 0, 0, 0, 0);
 
@@ -135,16 +133,6 @@ int i86_gdt_initialize () {
 	//! set default data descriptor
 	gdt_set_descriptor (2,0,0xffffffff,
 		I86_GDT_DESC_READWRITE|I86_GDT_DESC_CODEDATA|I86_GDT_DESC_MEMORY,
-		I86_GDT_GRAND_4K | I86_GDT_GRAND_32BIT | I86_GDT_GRAND_LIMITHI_MASK);
-
-	//! set default user mode code descriptor
-	gdt_set_descriptor (3,0,0xffffffff,
-		I86_GDT_DESC_READWRITE|I86_GDT_DESC_EXEC_CODE|I86_GDT_DESC_CODEDATA|I86_GDT_DESC_MEMORY|I86_GDT_DESC_DPL/*Ring 3*/,
-		I86_GDT_GRAND_4K | I86_GDT_GRAND_32BIT | I86_GDT_GRAND_LIMITHI_MASK);
-
-	//! set default user mode data descriptor
-	gdt_set_descriptor (4,0,0xffffffff,
-		I86_GDT_DESC_READWRITE|I86_GDT_DESC_CODEDATA|I86_GDT_DESC_MEMORY|I86_GDT_DESC_DPL/*Ring 3*/,
 		I86_GDT_GRAND_4K | I86_GDT_GRAND_32BIT | I86_GDT_GRAND_LIMITHI_MASK);
 
 	//! install gdtr

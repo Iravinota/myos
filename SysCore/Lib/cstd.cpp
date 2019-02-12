@@ -190,7 +190,7 @@ long __declspec (naked) _ftol2_sse() {
 //! required by MSVC++ runtime for floating point operations (Must be 1)
 int _fltused = 1;
 
-//! my implimentation of _aullshr. Eric - Implement of right shift
+//! my implimentation of _aullshr
 uint64_t _declspec (naked) _aullshr () {
 
    _asm {

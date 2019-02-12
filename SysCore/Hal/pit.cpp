@@ -1,9 +1,7 @@
 //****************************************************************************
 //**
-//**    Idt.cpp
-//**		Interrupt Descriptor Table. The IDT is responsible for providing
-//**	the interface for managing interrupts, installing, setting, requesting,
-//**	generating, and interrupt callback managing.
+//**    pit.cpp
+//**		8253 Programmable Interval Timer
 //**
 //****************************************************************************
 
@@ -12,40 +10,29 @@
 //============================================================================
 
 #include "idt.h"
-#include <string.h>
+#include "pit.h"
+#include "pic.h"
 #include <hal.h>
-#ifdef _DEBUG
-#include "..\Kernel\DebugDisplay.h"
-#endif
 
 //============================================================================
 //    IMPLEMENTATION PRIVATE DEFINITIONS / ENUMERATIONS / SIMPLE TYPEDEFS
 //============================================================================
+
+//-----------------------------------------------
+//	Controller Registers
+//-----------------------------------------------
+
+#define		I86_PIT_REG_COUNTER0		0x40
+#define		I86_PIT_REG_COUNTER1		0x41
+#define		I86_PIT_REG_COUNTER2		0x42
+#define		I86_PIT_REG_COMMAND			0x43
+
 //============================================================================
 //    IMPLEMENTATION PRIVATE CLASS PROTOTYPES / EXTERNAL CLASS REFERENCES
 //============================================================================
 //============================================================================
 //    IMPLEMENTATION PRIVATE STRUCTURES / UTILITY CLASSES
 //============================================================================
-
-#ifdef _MSC_VER
-#pragma pack (push, 1)
-#endif
-
-//! describes the structure for the processors idtr register
-struct idtr {
-
-	//! size of the interrupt descriptor table (idt)
-	uint16_t		limit;
-
-	//! base address of idt
-	uint32_t		base;
-};
-
-#ifdef _MSC_VER
-#pragma pack (pop, 1)
-#endif
-
 //============================================================================
 //    IMPLEMENTATION REQUIRED EXTERNAL REFERENCES (AVOID)
 //============================================================================
@@ -53,11 +40,11 @@ struct idtr {
 //    IMPLEMENTATION PRIVATE DATA
 //============================================================================
 
-//! interrupt descriptor table
-static struct idt_descriptor	_idt [I86_MAX_INTERRUPTS];
+//! Global Tick count
+static volatile uint32_t			_pit_ticks=0;
 
-//! idtr structure used to help define the cpu's idtr register
-static struct idtr				_idtr;
+//! Test if pit is initialized
+static bool							_pit_bIsInit=false;
 
 //============================================================================
 //    INTERFACE DATA
@@ -66,94 +53,115 @@ static struct idtr				_idtr;
 //    IMPLEMENTATION PRIVATE FUNCTION PROTOTYPES
 //============================================================================
 
-//! installs idtr into processors idtr register
-static void idt_install ();
-
-//! default int handler used to catch unregistered interrupts
-static void i86_default_handler ();
+//! pit timer interrupt handler
+void _cdecl i86_pit_irq ();
 
 //============================================================================
 //    IMPLEMENTATION PRIVATE FUNCTIONS
 //============================================================================
 
-//! installs idtr into processors idtr register
-static void idt_install () {
-#ifdef _MSC_VER
-	_asm lidt [_idtr]
-#endif
-}
+//!	pit timer interrupt handler
+void _cdecl i86_pit_irq () {
 
+	_asm add esp, 12
+	_asm pushad
 
-//! default handler to catch unhandled system interrupts.
-static void _cdecl i86_default_handler () {
+	//! increment tick count
+	_pit_ticks++;
 
-#ifdef _DEBUG
-	DebugClrScr (0x18);
-	DebugGotoXY (0,0);
-	DebugSetColor (0x1e);
-	DebugPuts ("*** [i86 Hal] i86_default_handler: Unhandled Exception");
-#endif
+	//! tell hal we are done
+	interruptdone(0);
 
-
-	for(;;);
+	_asm popad
+	_asm iretd
 }
 
 //============================================================================
 //    INTERFACE FUNCTIONS
 //============================================================================
 
-//! returns interrupt descriptor
-idt_descriptor* i86_get_ir (uint32_t i) {
+//! Sets new pit tick count and returns prev. value
+uint32_t i86_pit_set_tick_count (uint32_t i) {
 
-	if (i>I86_MAX_INTERRUPTS)
-		return 0;
-
-	return &_idt[i];
+	uint32_t ret = _pit_ticks;
+	_pit_ticks = i;
+	return ret;
 }
 
 
-//! installs a new interrupt handler
-int i86_install_ir (uint32_t i, uint16_t flags, uint16_t sel, I86_IRQ_HANDLER irq) {
+//! returns current tick count
+uint32_t i86_pit_get_tick_count () {
 
-	if (i>I86_MAX_INTERRUPTS)
-		return 0;
-
-	if (!irq)
-		return 0;
-
-	//! get base address of interrupt handler
-	uint64_t		uiBase = (uint64_t)&(*irq);
-
-	//! store base address into idt
-	_idt[i].baseLo		=	uint16_t(uiBase & 0xffff);
-	_idt[i].baseHi		=	uint16_t((uiBase >> 16) & 0xffff);
-	_idt[i].reserved	=	0;
-	_idt[i].flags		=	uint8_t(flags);
-	_idt[i].sel			=	sel;
-
-	return	0;
+	return _pit_ticks;
 }
 
 
-//! initialize idt
-int i86_idt_initialize (uint16_t codeSel) {
+//! send command to pic
+void i86_pit_send_command (uint8_t cmd) {
 
-	//! set up idtr for processor
-	_idtr.limit = sizeof (struct idt_descriptor) * I86_MAX_INTERRUPTS -1;
-	_idtr.base	= (uint32_t)&_idt[0];
+	outportb (I86_PIT_REG_COMMAND, cmd);
+}
 
-	//! null out the idt
-	memset ((void*)&_idt[0], 0, sizeof (idt_descriptor) * I86_MAX_INTERRUPTS-1);
 
-	//! register default handlers
-	for (int i=0; i<I86_MAX_INTERRUPTS; i++)
-		i86_install_ir (i, I86_IDT_DESC_PRESENT | I86_IDT_DESC_BIT32,
-			codeSel, (I86_IRQ_HANDLER)i86_default_handler);
+//! send data to a counter
+void i86_pit_send_data (uint16_t data, uint8_t counter) {
 
-	//! install our idt
-	idt_install ();
+	uint8_t	port= (counter==I86_PIT_OCW_COUNTER_0) ? I86_PIT_REG_COUNTER0 :
+		((counter==I86_PIT_OCW_COUNTER_1) ? I86_PIT_REG_COUNTER1 : I86_PIT_REG_COUNTER2);
 
-	return 0;
+	outportb (port, (uint8_t)data);
+}
+
+
+//! read data from counter
+uint8_t i86_pit_read_data (uint16_t counter) {
+
+	uint8_t	port= (counter==I86_PIT_OCW_COUNTER_0) ? I86_PIT_REG_COUNTER0 :
+		((counter==I86_PIT_OCW_COUNTER_1) ? I86_PIT_REG_COUNTER1 : I86_PIT_REG_COUNTER2);
+
+	return inportb (port);
+}
+
+
+//! starts a counter
+void i86_pit_start_counter (uint32_t freq, uint8_t counter, uint8_t mode) {
+
+	if (freq==0)
+		return;
+
+	uint16_t divisor = uint16_t(1193181 / (uint16_t)freq);
+
+	//! send operational command
+	uint8_t ocw=0;
+	ocw = (ocw & ~I86_PIT_OCW_MASK_MODE) | mode;
+	ocw = (ocw & ~I86_PIT_OCW_MASK_RL) | I86_PIT_OCW_RL_DATA;
+	ocw = (ocw & ~I86_PIT_OCW_MASK_COUNTER) | counter;
+	i86_pit_send_command (ocw);
+
+	//! set frequency rate
+	i86_pit_send_data (divisor & 0xff, 0);
+	i86_pit_send_data ((divisor >> 8) & 0xff, 0);
+
+	//! reset tick count
+	_pit_ticks=0;
+}
+
+
+//! initialize minidriver
+void _cdecl i86_pit_initialize () {
+
+	//! Install our interrupt handler (irq 0 uses interrupt 32)
+	setvect (32, i86_pit_irq);
+
+	//! we are initialized
+	_pit_bIsInit = true;
+}
+
+
+//! test if pit interface is initialized
+bool _cdecl i86_pit_is_initialized () {
+
+	return _pit_bIsInit;
 }
 
 //============================================================================
@@ -161,6 +169,6 @@ int i86_idt_initialize (uint16_t codeSel) {
 //============================================================================
 //****************************************************************************
 //**
-//**    END[idt.cpp]
+//**    END[pit.cpp]
 //**
 //****************************************************************************

@@ -1,38 +1,76 @@
 /*
-======================================
+=========================================================================
 	main.cpp
-		-kernel startup code
-======================================
+
+	main kernel program
+=========================================================================
 */
 
-#include <Hal.h>
+#include <hal.h>
+#include "exception.h"
 #include "DebugDisplay.h"
 
-void _cdecl main () {
+/*
+*	Our uber-1337 logo
+*/
+char* logo =
+"\
+    __  _______  _____\n\
+   /  |/  / __ \\/ ___/\n\
+  / /|_/ / / / /\\__ \\ Microcomputer Operating System \n\
+ / /  / / /_/ /___/ / -------------------------------\n\
+/_/  /_/\\____//____/  \n\n";
 
-	int i=0x12;
 
-	DebugClrScr (0x18);
+int _cdecl main () {
 
-	DebugGotoXY (0,4);
+	//! Initialize hal driver
+	hal_initialize ();
+
+	//! enable all interrupts
+	enable ();
+
+	//! install our exception handlers
+	setvect (0,(void (__cdecl &)(void))divide_by_zero_fault);
+	setvect (1,(void (__cdecl &)(void))single_step_trap);
+	setvect (2,(void (__cdecl &)(void))nmi_trap);
+	setvect (3,(void (__cdecl &)(void))breakpoint_trap);
+	setvect (4,(void (__cdecl &)(void))overflow_trap);
+	setvect (5,(void (__cdecl &)(void))bounds_check_fault);
+	setvect (6,(void (__cdecl &)(void))invalid_opcode_fault);
+	setvect (7,(void (__cdecl &)(void))no_device_fault);
+	setvect (8,(void (__cdecl &)(void))double_fault_abort);
+	setvect (10,(void (__cdecl &)(void))invalid_tss_fault);
+	setvect (11,(void (__cdecl &)(void))no_segment_fault);
+	setvect (12,(void (__cdecl &)(void))stack_fault);
+	setvect (13,(void (__cdecl &)(void))general_protection_fault);
+	setvect (14,(void (__cdecl &)(void))page_fault);
+	setvect (16,(void (__cdecl &)(void))fpu_fault);
+	setvect (17,(void (__cdecl &)(void))alignment_check_fault);
+	setvect (18,(void (__cdecl &)(void))machine_check_abort);
+	setvect (19,(void (__cdecl &)(void))simd_fpu_fault);
+
+	//! clear and init display
+	DebugClrScr (0x13);
+	DebugGotoXY (0,0);
+	DebugSetColor (0x19);
+
+	//! render text and logo
+	DebugPuts (logo);
 	DebugSetColor (0x17);
-	DebugPrintf ("    +-----------------------------------------+\n");
-	DebugPrintf ("    |    MOS 32 Bit C++ Kernel Executing!     |\n");
-	DebugPrintf ("    +-----------------------------------------+\n\n");
+	DebugPuts ("Weee.... The PIC, PIT, and exception handlers are installed!\n\n");
+	DebugPuts ("Hitting any key will fire the default HAL handlers as we do\n");
+	DebugPuts ("not have a keyboard driver yet to install one.\n\n");
+	DebugPrintf ("Cpu vender: %s \n\n", get_cpu_vender ());
 
-	//DebugPrintf ("\n    i as integer ........................");
-	//DebugSetColor (0x1F);
-	//DebugPrintf ("[%i]",i);
-	//DebugSetColor (0x12);
-	//DebugPrintf ("\n    i in hex ............................");
-	//DebugSetColor (0x1F);
-	//DebugPrintf ("[0x%x]",i);
+	// Go into a loop--constantly display the current tick count
+	for(;;) {
+		DebugGotoXY (0,14);
+		DebugPrintf ("Current tick count: %i", get_tick_count());
+	}
 
-	//DebugGotoXY (4,16);
-	//DebugSetColor (0x1F);
-	//DebugPrintf ("I am preparing to load... Hold on, please... :)");
-
-	hal_initialize();
-
-	DebugPrintf ("\nhal initialized");
+	return 0;
 }
+
+
+

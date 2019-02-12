@@ -27,6 +27,12 @@
     <ClCompile Include="idt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="pic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gdt.h">
@@ -39,6 +45,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cpu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

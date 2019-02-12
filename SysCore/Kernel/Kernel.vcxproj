@@ -108,10 +108,13 @@
   <ItemGroup>
     <ClCompile Include="DebugDisplay.cpp" />
     <ClCompile Include="entry.cpp" />
+    <ClCompile Include="exception.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="panic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugDisplay.h" />
+    <ClInclude Include="exception.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

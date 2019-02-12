@@ -1,75 +1,129 @@
  KRNL32
 
- Timestamp is 5c618a64 (Mon Feb 11 22:44:52 2019)
+ Timestamp is 5c62e7d6 (Tue Feb 12 23:35:50 2019)
 
  Preferred load address is c0000000
 
  Start         Length     Name                   Class
- 0001:00000000 00000c9fH .text                   CODE
- 0002:00000000 000000b5H .rdata                  DATA
+ 0001:00000000 0000115fH .text                   CODE
+ 0002:00000000 000003e4H .rdata                  DATA
  0003:00000000 00000004H .CRT$XCA                DATA
  0003:00000004 00000004H .CRT$XCZ                DATA
- 0003:00000008 0000001cH .data                   DATA
- 0003:00000028 00000890H .bss                    DATA
+ 0003:00000008 00000020H .data                   DATA
+ 0003:00000028 00000880H .bss                    DATA
 
   Address         Publics by Value              Rva+Base       Lib:Object
 
- 0000:00000000       ___safe_se_handler_count   00000000     <absolute>
  0000:00000000       ___safe_se_handler_table   00000000     <absolute>
- 0001:00000000       ?scroll@@YAXXZ             c0000400 f   DebugDisplay.obj
- 0001:00000070       ?DebugPutc@@YAXE@Z         c0000470 f   DebugDisplay.obj
- 0001:00000190       ?DebugSetColor@@YAII@Z     c0000590 f   DebugDisplay.obj
- 0001:000001b0       ?DebugGotoXY@@YAXII@Z      c00005b0 f   DebugDisplay.obj
- 0001:00000240       ?DebugClrScr@@YAXE@Z       c0000640 f   DebugDisplay.obj
- 0001:000002f0       ?DebugPuts@@YAXPAD@Z       c00006f0 f   DebugDisplay.obj
- 0001:00000440       ?DebugPrintf@@YAHPBDZZ     c0000840 f   DebugDisplay.obj
- 0001:000006a0       ?kernel_entry@@YAXXZ       c0000aa0 f   entry.obj
- 0001:000006e0       _main                      c0000ae0 f   main.obj
- 0001:00000730       ?hal_initialize@@YAHXZ     c0000b30 f   Hal:Hal.obj
- 0001:00000750       ?hal_shutdown@@YAHXZ       c0000b50 f   Hal:Hal.obj
- 0001:00000760       ?geninterrupt@@YAXH@Z      c0000b60 f   Hal:Hal.obj
- 0001:00000780       ?sound@@YAXI@Z             c0000b80 f   Hal:Hal.obj
- 0001:000007a0       ?inportb@@YAEG@Z           c0000ba0 f   Hal:Hal.obj
- 0001:000007b0       ?outportb@@YAXGE@Z         c0000bb0 f   Hal:Hal.obj
- 0001:000007c0       ?enable@@YAXXZ             c0000bc0 f   Hal:Hal.obj
- 0001:000007d0       ?disable@@YAXXZ            c0000bd0 f   Hal:Hal.obj
- 0001:000007e0       ?setvect@@YAXHA6AXXZH@Z    c0000be0 f   Hal:Hal.obj
- 0001:000007f0       ?i86_cpu_initialize@@YAHXZ c0000bf0 f   Hal:cpu.obj
- 0001:00000810       ?i86_cpu_shutdown@@YAXXZ   c0000c10 f   Hal:cpu.obj
- 0001:00000820       ?i86_cpu_get_vender@@YAPADXZ c0000c20 f   Hal:cpu.obj
- 0001:00000850       ?i86_cpu_flush_caches@@YAXXZ c0000c50 f   Hal:cpu.obj
- 0001:00000860       ?i86_cpu_flush_caches_write@@YAXXZ c0000c60 f   Hal:cpu.obj
- 0001:00000870       ?i86_cpu_flush_tlb_entry@@YAXI@Z c0000c70 f   Hal:cpu.obj
- 0001:00000880       ?i86_get_ir@@YAPAUidt_descriptor@@I@Z c0000c80 f   Hal:idt.obj
- 0001:000008a0       ?i86_install_ir@@YAHIGGP6AXXZ@Z c0000ca0 f   Hal:idt.obj
- 0001:00000930       ?i86_idt_initialize@@YAHG@Z c0000d30 f   Hal:idt.obj
- 0001:000009c0       ?gdt_set_descriptor@@YAXI_K0EE@Z c0000dc0 f   Hal:gdt.obj
- 0001:00000ab0       ?i86_gdt_get_descriptor@@YAPAUgdt_descriptor@@H@Z c0000eb0 f   Hal:gdt.obj
- 0001:00000ad0       ?i86_gdt_initialize@@YAHXZ c0000ed0 f   Hal:gdt.obj
- 0001:00000ba0       ?strcpy@@YAPADPADPBD@Z     c0000fa0 f   Lib:string.obj
- 0001:00000bc0       ?strlen@@YAIPBD@Z          c0000fc0 f   Lib:string.obj
- 0001:00000be0       ?memset@@YAPAXPAXDI@Z      c0000fe0 f   Lib:string.obj
- 0001:00000c00       ?Exit@@YAXXZ               c0001000 f   Lib:cstd.obj
- 0001:00000c40       ?InitializeConstructors@@YAXXZ c0001040 f   Lib:cstd.obj
- 0001:00000c80       __aullshr                  c0001080 f   Lib:cstd.obj
- 0002:00000000       ??_C@_0BB@NFGHJPKB@?6hal?5initialized?$AA@ c0001200     main.obj
- 0002:00000014       ??_C@_0DC@PIMAHGBM@?5?5?5?5?$CL?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9@ c0001214     main.obj
- 0002:00000048       ??_C@_0DB@OCIOHNPJ@?5?5?5?5?$HM?5?5?5?5MOS?532?5Bit?5C?$CL?$CL?5Kernel?5E@ c0001248     main.obj
- 0002:0000007c       ??_C@_0DB@ECANJMMD@?5?5?5?5?$CL?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9@ c000127c     main.obj
- 0003:00000000       ?__xc_a@@3PAP6AXXZA        c0001400     Lib:cstd.obj
- 0003:00000004       ?__xc_z@@3PAP6AXXZA        c0001404     Lib:cstd.obj
- 0003:00000008       ?video_memory@@3PAGA       c0001408     DebugDisplay.obj
- 0003:0000000c       ?bchars@@3PADA             c000140c     DebugDisplay.obj
- 0003:00000020       __fltused                  c0001420     Lib:cstd.obj
- 0003:00000028       ?tbuf@@3PADA               c0001428     DebugDisplay.obj
- 0003:00000048       ?cursor_x@@3EA             c0001448     DebugDisplay.obj
- 0003:00000049       ?cursor_y@@3EA             c0001449     DebugDisplay.obj
- 0003:0000004a       ?_color@@3EA               c000144a     DebugDisplay.obj
+ 0000:00000000       ___safe_se_handler_count   00000000     <absolute>
+ 0001:00000000       ?DebugPutc@@YAXE@Z         c0000400 f   DebugDisplay.obj
+ 0001:000000a0       ?DebugSetColor@@YAII@Z     c00004a0 f   DebugDisplay.obj
+ 0001:000000c0       ?DebugGotoXY@@YAXII@Z      c00004c0 f   DebugDisplay.obj
+ 0001:000000f0       ?DebugClrScr@@YAXE@Z       c00004f0 f   DebugDisplay.obj
+ 0001:00000140       ?DebugPuts@@YAXPAD@Z       c0000540 f   DebugDisplay.obj
+ 0001:00000220       ?DebugPrintf@@YAHPBDZZ     c0000620 f   DebugDisplay.obj
+ 0001:00000480       ?kernel_entry@@YAXXZ       c0000880 f   entry.obj
+ 0001:000004b0       ?divide_by_zero_fault@@YAXIII@Z c00008b0 f   exception.obj
+ 0001:000004d0       ?single_step_trap@@YAXIII@Z c00008d0 f   exception.obj
+ 0001:000004f0       ?nmi_trap@@YAXIII@Z        c00008f0 f   exception.obj
+ 0001:00000510       ?breakpoint_trap@@YAXIII@Z c0000910 f   exception.obj
+ 0001:00000530       ?overflow_trap@@YAXIII@Z   c0000930 f   exception.obj
+ 0001:00000550       ?bounds_check_fault@@YAXIII@Z c0000950 f   exception.obj
+ 0001:00000570       ?invalid_opcode_fault@@YAXIII@Z c0000970 f   exception.obj
+ 0001:00000590       ?no_device_fault@@YAXIII@Z c0000990 f   exception.obj
+ 0001:000005b0       ?double_fault_abort@@YAXIIII@Z c00009b0 f   exception.obj
+ 0001:000005d0       ?invalid_tss_fault@@YAXIIII@Z c00009d0 f   exception.obj
+ 0001:000005f0       ?no_segment_fault@@YAXIIII@Z c00009f0 f   exception.obj
+ 0001:00000610       ?stack_fault@@YAXIIII@Z    c0000a10 f   exception.obj
+ 0001:00000630       ?general_protection_fault@@YAXIIII@Z c0000a30 f   exception.obj
+ 0001:00000650       ?page_fault@@YAXIIII@Z     c0000a50 f   exception.obj
+ 0001:00000670       ?fpu_fault@@YAXIII@Z       c0000a70 f   exception.obj
+ 0001:00000690       ?alignment_check_fault@@YAXIIII@Z c0000a90 f   exception.obj
+ 0001:000006b0       ?machine_check_abort@@YAXIII@Z c0000ab0 f   exception.obj
+ 0001:000006d0       ?simd_fpu_fault@@YAXIII@Z  c0000ad0 f   exception.obj
+ 0001:000006f0       _main                      c0000af0 f   main.obj
+ 0001:00000850       ?kernel_panic@@YAXPBDZZ    c0000c50 f   panic.obj
+ 0001:00000890       ?hal_initialize@@YAHXZ     c0000c90 f   Hal:Hal.obj
+ 0001:000008c0       ?hal_shutdown@@YAHXZ       c0000cc0 f   Hal:Hal.obj
+ 0001:000008d0       ?geninterrupt@@YAXH@Z      c0000cd0 f   Hal:Hal.obj
+ 0001:000008f0       ?sound@@YAXI@Z             c0000cf0 f   Hal:Hal.obj
+ 0001:00000910       ?inportb@@YAEG@Z           c0000d10 f   Hal:Hal.obj
+ 0001:00000920       ?outportb@@YAXGE@Z         c0000d20 f   Hal:Hal.obj
+ 0001:00000930       ?enable@@YAXXZ             c0000d30 f   Hal:Hal.obj
+ 0001:00000940       ?disable@@YAXXZ            c0000d40 f   Hal:Hal.obj
+ 0001:00000950       ?setvect@@YAXHA6AXXZ@Z     c0000d50 f   Hal:Hal.obj
+ 0001:00000970       ?getvect@@YAP6AXXZH@Z      c0000d70 f   Hal:Hal.obj
+ 0001:000009c0       ?get_cpu_vender@@YAPBDXZ   c0000dc0 f   Hal:Hal.obj
+ 0001:000009d0       ?get_tick_count@@YAHXZ     c0000dd0 f   Hal:Hal.obj
+ 0001:000009e0       ?interruptdone@@YAXI@Z     c0000de0 f i Hal:Hal.obj
+ 0001:00000a10       ?i86_pit_irq@@YAXXZ        c0000e10 f   Hal:pit.obj
+ 0001:00000a40       ?i86_pit_set_tick_count@@YAII@Z c0000e40 f   Hal:pit.obj
+ 0001:00000a60       ?i86_pit_get_tick_count@@YAIXZ c0000e60 f   Hal:pit.obj
+ 0001:00000a70       ?i86_pit_send_command@@YAXE@Z c0000e70 f   Hal:pit.obj
+ 0001:00000a90       ?i86_pit_send_data@@YAXGE@Z c0000e90 f   Hal:pit.obj
+ 0001:00000ae0       ?i86_pit_read_data@@YAEG@Z c0000ee0 f   Hal:pit.obj
+ 0001:00000b30       ?i86_pit_start_counter@@YAXIEE@Z c0000f30 f   Hal:pit.obj
+ 0001:00000bd0       ?i86_pit_initialize@@YAXXZ c0000fd0 f   Hal:pit.obj
+ 0001:00000bf0       ?i86_pit_is_initialized@@YA_NXZ c0000ff0 f   Hal:pit.obj
+ 0001:00000c00       ?i86_pic_send_command@@YAXEE@Z c0001000 f i Hal:pic.obj
+ 0001:00000c40       ?i86_pic_send_data@@YAXEE@Z c0001040 f i Hal:pic.obj
+ 0001:00000c80       ?i86_pic_initialize@@YAXEE@Z c0001080 f   Hal:pic.obj
+ 0001:00000d30       ?i86_cpu_initialize@@YAHXZ c0001130 f   Hal:cpu.obj
+ 0001:00000d50       ?i86_cpu_shutdown@@YAXXZ   c0001150 f   Hal:cpu.obj
+ 0001:00000d60       ?i86_cpu_get_vender@@YAPADXZ c0001160 f   Hal:cpu.obj
+ 0001:00000d90       ?i86_get_ir@@YAPAUidt_descriptor@@I@Z c0001190 f   Hal:idt.obj
+ 0001:00000db0       ?i86_install_ir@@YAHIGGP6AXXZ@Z c00011b0 f   Hal:idt.obj
+ 0001:00000e40       ?i86_idt_initialize@@YAHG@Z c0001240 f   Hal:idt.obj
+ 0001:00000ed0       ?gdt_set_descriptor@@YAXI_K0EE@Z c00012d0 f   Hal:gdt.obj
+ 0001:00000fc0       ?i86_gdt_get_descriptor@@YAPAUgdt_descriptor@@H@Z c00013c0 f   Hal:gdt.obj
+ 0001:00000fe0       ?i86_gdt_initialize@@YAHXZ c00013e0 f   Hal:gdt.obj
+ 0001:00001060       ?strcpy@@YAPADPADPBD@Z     c0001460 f   Lib:string.obj
+ 0001:00001080       ?strlen@@YAIPBD@Z          c0001480 f   Lib:string.obj
+ 0001:000010a0       ?memset@@YAPAXPAXDI@Z      c00014a0 f   Lib:string.obj
+ 0001:000010c0       ?Exit@@YAXXZ               c00014c0 f   Lib:cstd.obj
+ 0001:00001100       ?InitializeConstructors@@YAXXZ c0001500 f   Lib:cstd.obj
+ 0001:00001140       __aullshr                  c0001540 f   Lib:cstd.obj
+ 0002:00000000       ??_C@_0M@PAMKMJP@Divide?5by?50?$AA@ c0001600     exception.obj
+ 0002:0000000c       ??_C@_0M@HBBAMPBG@Single?5step?$AA@ c000160c     exception.obj
+ 0002:00000018       ??_C@_08MAEPCHJN@NMI?5trap?$AA@ c0001618     exception.obj
+ 0002:00000024       ??_C@_0BA@MJDBKJBI@Breakpoint?5trap?$AA@ c0001624     exception.obj
+ 0002:00000034       ??_C@_0O@NPIPDPLG@Overflow?5trap?$AA@ c0001634     exception.obj
+ 0002:00000044       ??_C@_0BD@OAFDEGEK@Bounds?5check?5fault?$AA@ c0001644     exception.obj
+ 0002:00000058       ??_C@_0P@GJJPHHDN@Invalid?5opcode?$AA@ c0001658     exception.obj
+ 0002:00000068       ??_C@_0BB@KJJKIIDM@Device?5not?5found?$AA@ c0001668     exception.obj
+ 0002:0000007c       ??_C@_0N@EMHPBCJE@Double?5fault?$AA@ c000167c     exception.obj
+ 0002:0000008c       ??_C@_0M@OLMALBPG@Invalid?5TSS?$AA@ c000168c     exception.obj
+ 0002:00000098       ??_C@_0BA@FIBIGBGL@Invalid?5segment?$AA@ c0001698     exception.obj
+ 0002:000000a8       ??_C@_0M@LEEDKLOB@Stack?5fault?$AA@ c00016a8     exception.obj
+ 0002:000000b4       ??_C@_0BJ@JKJOCMHH@General?5Protection?5Fault?$AA@ c00016b4     exception.obj
+ 0002:000000d0       ??_C@_0L@JGHLOOMD@Page?5Fault?$AA@ c00016d0     exception.obj
+ 0002:000000dc       ??_C@_09ENEAMLC@FPU?5Fault?$AA@ c00016dc     exception.obj
+ 0002:000000e8       ??_C@_0BA@DLJHEABO@Alignment?5Check?$AA@ c00016e8     exception.obj
+ 0002:000000f8       ??_C@_0O@LALCKNGJ@Machine?5Check?$AA@ c00016f8     exception.obj
+ 0002:00000108       ??_C@_0P@JHGCNKG@FPU?5SIMD?5fault?$AA@ c0001708     exception.obj
+ 0002:00000118       ??_C@_0LD@PNCFHCH@?5?5?5?5__?5?5_______?5?5_____?6?5?5?5?1?5?5?$HM?1?5@ c0001718     main.obj
+ 0002:000001cc       ??_C@_0BH@CJONINCH@Current?5tick?5count?3?5?$CFi?$AA@ c00017cc     main.obj
+ 0002:000001e4       ??_C@_0BC@CNMMFGPG@Cpu?5vender?3?5?$CFs?5?6?6?$AA@ c00017e4     main.obj
+ 0002:000001f8       ??_C@_0DB@OMHFNFDO@not?5have?5a?5keyboard?5driver?5yet?5t@ c00017f8     main.obj
+ 0002:0000022c       ??_C@_0DN@JBMCAJHB@Hitting?5any?5key?5will?5fire?5the?5de@ c000182c     main.obj
+ 0002:0000026c       ??_C@_0DP@FJAGJFHL@Weee?4?4?4?4?5The?5PIC?0?5PIT?0?5and?5excep@ c000186c     main.obj
+ 0002:000002ac       ??_C@_0N@PFILFPHL@?$CK?$CK?$CK?5STOP?3?5?$CFs?$AA@ c00018ac     panic.obj
+ 0002:000002c0       ??_C@_0BCE@IIDFFEFH@We?5apologize?0?5MOS?5has?5encountere@ c00018c0     panic.obj
+ 0003:00000000       ?__xc_a@@3PAP6AXXZA        c0001a00     Lib:cstd.obj
+ 0003:00000004       ?__xc_z@@3PAP6AXXZA        c0001a04     Lib:cstd.obj
+ 0003:00000008       ?video_memory@@3PAGA       c0001a08     DebugDisplay.obj
+ 0003:0000000c       ?bchars@@3PADA             c0001a0c     DebugDisplay.obj
+ 0003:0000001c       ?logo@@3PADA               c0001a1c     main.obj
+ 0003:00000024       __fltused                  c0001a24     Lib:cstd.obj
+ 0003:00000028       ?tbuf@@3PADA               c0001a28     DebugDisplay.obj
+ 0003:00000048       ?cursor_x@@3EA             c0001a48     DebugDisplay.obj
+ 0003:00000049       ?cursor_y@@3EA             c0001a49     DebugDisplay.obj
+ 0003:0000004a       ?_color@@3EA               c0001a4a     DebugDisplay.obj
 
  entry point at        0000:00000000
 
  Static symbols
 
- 0001:000009a0       ?idt_install@@YAXXZ        c0000da0 f   Hal:idt.obj
- 0001:000009b0       ?i86_default_handler@@YAXXZ c0000db0 f   Hal:idt.obj
- 0001:00000b90       ?gdt_install@@YAXXZ        c0000f90 f   Hal:gdt.obj
+ 0001:00000eb0       ?idt_install@@YAXXZ        c00012b0 f   Hal:idt.obj
+ 0001:00000ec0       ?i86_default_handler@@YAXXZ c00012c0 f   Hal:idt.obj
+ 0001:00001050       ?gdt_install@@YAXXZ        c0001450 f   Hal:gdt.obj

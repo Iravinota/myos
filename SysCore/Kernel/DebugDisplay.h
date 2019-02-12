@@ -31,15 +31,12 @@
 //    INTERFACE FUNCTION PROTOTYPES
 //============================================================================
 
-extern void DebugPutc(unsigned char c);
-extern void DebugClrScr(const uint8_t c);
-extern void DebugPuts(char* str);
-extern int DebugPrintf(const char* str, ...);
-extern unsigned DebugSetColor(const unsigned c);
-extern void DebugGotoXY(unsigned x, unsigned y);
-extern void DebugGetXY(unsigned* x, unsigned* y);
-extern int DebugGetHorz();
-extern int DebugGetVert();
+extern void DebugPutc (unsigned char c);
+extern void DebugClrScr (const uint8_t c);
+extern void DebugPuts (char* str);
+extern int DebugPrintf (const char* str, ...);
+extern unsigned DebugSetColor (const unsigned c);
+extern void DebugGotoXY (unsigned x, unsigned y);
 
 //============================================================================
 //    INTERFACE OBJECT CLASS DEFINITIONS

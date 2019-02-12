@@ -56,3 +56,17 @@ The [02-versions.md](./02-versions.md) contains all the GRUB like versions. Now 
 ### 2. Bochs
 
 ![initialize](img/2019-02-11-22-46-22.png)
+
+## MyOS v0.0.15
+
+### 1. Changes
+
+#### 1.1 PIC
+
+- PIC is 8259A Programmable Interrupt Controller. It's a hardware, used to collect interrupts from other hardware and send it to the CPU.
+- pic.h and pic.cpp are used to initialize the PIC hardware, mapping IRQ0-IRQ15 to 0x20-0x30 in IVT(Interrupt Vector Table).
+
+#### 1.2 PIT
+
+- PIT is 8253 Programmable Interval Timer. It's a hardware, used to generate time clock.
+- pit.h and pit.cpp are used to initialize the PIT hardware, mapping it's IRQ0 to use interrupt 32.
