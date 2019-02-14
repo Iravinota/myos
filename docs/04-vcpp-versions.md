@@ -89,3 +89,12 @@ This version has some bugs, so the bochs can't display.
 - Use `int 0x15` to get memroy information on bootstrap (Memory.inc)
 - **Stage2.asm** load these boot_info to **entry.cpp**, then passed to *kmain* in **main.cpp**
 - **mmngr_phys.h** and **mmngr_phys.cpp** is a physical memory manager. It use a bit-map to manage the memory. The main idea is seperate all of the physic memory to small pieces(block), then use a bit-map manage all the blocks.
+
+#### 1.2 Some files
+
+- **bootinfo.h**: boot_info for GRUB like bootable information
+- **error.h**: some error information
+
+### 1.2 Bochs
+
+Have some bugs.
