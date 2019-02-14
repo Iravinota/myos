@@ -70,3 +70,22 @@ The [02-versions.md](./02-versions.md) contains all the GRUB like versions. Now 
 
 - PIT is 8253 Programmable Interval Timer. It's a hardware, used to generate time clock.
 - pit.h and pit.cpp are used to initialize the PIT hardware, mapping it's IRQ0 to use interrupt 32.
+
+#### 1.3 Some files
+
+- **exception.h** and **exception.cpp** defines some exceptions which are loaded at main.cpp
+- **panic.cpp** defines what to desplay when some error happens.
+
+### 2. Bochs
+
+This version has some bugs, so the bochs can't display.
+
+## MyOS v0.0.16
+
+### 1. Changes
+
+#### 1.1 Physical Memory Manager
+
+- Use `int 0x15` to get memroy information on bootstrap (Memory.inc)
+- **Stage2.asm** load these boot_info to **entry.cpp**, then passed to *kmain* in **main.cpp**
+- **mmngr_phys.h** and **mmngr_phys.cpp** is a physical memory manager. It use a bit-map to manage the memory. The main idea is seperate all of the physic memory to small pieces(block), then use a bit-map manage all the blocks.

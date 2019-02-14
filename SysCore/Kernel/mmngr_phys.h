@@ -1,33 +1,25 @@
-#ifndef _CPU_H_INCLUDED
-# define _CPU_H_INCLUDED
+
+#ifndef _MMNGR_PHYS_H
+#define _MMNGR_PHYS_H
 //****************************************************************************
 //**
-//**    cpu.h
-//**
-//**	This is the processor interface. Everything outside of this module
-//**	must use this interface when working on processor data.
-//**
-//**	A processor is a module that manages the very basic data structures
-//**	and data within the system. The processor interface provides the interface
-//**	for managing processors, processor cores, accessing processor structures,
-//**	and more
+//**    mmngr_phys.cpp
+//**		-Physical Memory Manager
 //**
 //****************************************************************************
-
-#ifndef ARCH_X86
-#error "[cpu.h] platform not implimented. Define ARCH_X86 for HAL"
-#endif
-
 //============================================================================
 //    INTERFACE REQUIRED HEADERS
 //============================================================================
 
 #include <stdint.h>
-#include "regs.h"
 
 //============================================================================
 //    INTERFACE DEFINITIONS / ENUMERATIONS / SIMPLE TYPEDEFS
 //============================================================================
+
+//! physical address
+typedef	uint32_t physical_addr;
+
 //============================================================================
 //    INTERFACE CLASS PROTOTYPES / EXTERNAL CLASS REFERENCES
 //============================================================================
@@ -41,23 +33,53 @@
 //    INTERFACE FUNCTION PROTOTYPES
 //============================================================================
 
-//! initialize the processors
-extern int i86_cpu_initialize ();
+//! initialize the physical memory manager
+extern	void	pmmngr_init (size_t, physical_addr);
 
-//! shutdown the processors
-extern void i86_cpu_shutdown ();
+//! enables a physical memory region for use
+extern	void	pmmngr_init_region (physical_addr, size_t);
 
-//! get processor vender
-extern char* i86_cpu_get_vender ();
+//! disables a physical memory region as in use (unuseable)
+extern	void	pmmngr_deinit_region (physical_addr base, size_t);
 
-//! flush all internal and external processor caches
-extern void i86_cpu_flush_caches ();
+//! allocates a single memory block
+extern	void*	pmmngr_alloc_block ();
 
-//! same as above but writes the data back into memory first
-extern void i86_cpu_flush_caches_write ();
+//! releases a memory block
+extern	void	pmmngr_free_block (void*);
 
-//! flushes translation lookaside buffer (TLB) entry
-extern void i86_cpu_flush_tlb_entry (uint32_t);
+//! allocates blocks of memory
+extern	void*	pmmngr_alloc_blocks (size_t);
+
+//! frees blocks of memory
+extern	void	pmmngr_free_blocks (void*, size_t);
+
+//! returns amount of physical memory the manager is set to use
+extern	size_t pmmngr_get_memory_size ();
+
+//! returns number of blocks currently in use
+extern	uint32_t pmmngr_get_use_block_count ();
+
+//! returns number of blocks not in use
+extern	uint32_t pmmngr_get_free_block_count ();
+
+//! returns number of memory blocks
+extern	uint32_t pmmngr_get_block_count ();
+
+//! returns default memory block size in bytes
+extern uint32_t pmmngr_get_block_size ();
+
+//! enable or disable paging
+extern	void	pmmngr_paging_enable (bool);
+
+//! test if paging is enabled
+extern	bool	pmmngr_is_paging ();
+
+//! loads the page directory base register (PDBR)
+extern	void	pmmngr_load_PDBR (physical_addr);
+
+//! get PDBR physical address
+extern	physical_addr pmmngr_get_PDBR ();
 
 //============================================================================
 //    INTERFACE OBJECT CLASS DEFINITIONS
@@ -67,7 +89,8 @@ extern void i86_cpu_flush_tlb_entry (uint32_t);
 //============================================================================
 //****************************************************************************
 //**
-//**    END [FILE NAME]
+//**    END [mmngr_phys.h]
 //**
 //****************************************************************************
+
 #endif

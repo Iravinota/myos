@@ -60,8 +60,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="bootinfo.h" />
     <ClInclude Include="crtdefs.h" />
     <ClInclude Include="ctype.h" />
+    <ClInclude Include="error.h" />
     <ClInclude Include="Hal.h" />
     <ClInclude Include="size_t.h" />
     <ClInclude Include="stdarg.h" />

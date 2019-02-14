@@ -49,6 +49,7 @@
       <RuntimeLibrary>
       </RuntimeLibrary>
       <AdditionalIncludeDirectories>H:\SysCore\Include</AdditionalIncludeDirectories>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

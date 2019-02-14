@@ -30,12 +30,18 @@
     <ClCompile Include="panic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mmngr_phys.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugDisplay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="exception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mmngr_phys.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

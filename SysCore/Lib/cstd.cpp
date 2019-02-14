@@ -187,13 +187,12 @@ long __declspec (naked) _ftol2_sse() {
 	}
 }
 
-//! required by MSVC++ runtime for floating point operations (Must be 1)
-int _fltused = 1;
-
-//! my implimentation of _aullshr
+//! MSVC++ 2008 needs this to right shift uint64_t numbers
+//! eax=> number to shift cl=> number of bits to shift by
+//! ret\ eax=> new number
 uint64_t _declspec (naked) _aullshr () {
 
-   _asm {
+	_asm {
         //! only handle 64bit shifts or more
         cmp     cl,64
         jae     invalid
@@ -206,23 +205,25 @@ uint64_t _declspec (naked) _aullshr () {
         ret
 
 		//! handle shifts of 32-63 bits
-   more32:
+	more32:
         mov     eax,edx
         xor     edx,edx
         and     cl,31
         shr     eax,cl
         ret
 
-   //! invalid number (its less then 32bits), return 0
-   invalid:
+	//! invalid number (its less then 32bits), return 0
+	invalid:
         xor     eax,eax
         xor     edx,edx
         ret
-   }
+	}
 }
 
-};
+//! required by MSVC++ runtime for floating point operations (Must be 1)
+int _fltused = 1;
 
+};
 
 /*
 ===================================

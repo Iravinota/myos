@@ -110,11 +110,13 @@
     <ClCompile Include="entry.cpp" />
     <ClCompile Include="exception.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mmngr_phys.cpp" />
     <ClCompile Include="panic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugDisplay.h" />
     <ClInclude Include="exception.h" />
+    <ClInclude Include="mmngr_phys.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

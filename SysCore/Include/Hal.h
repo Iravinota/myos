@@ -28,6 +28,12 @@
 //    INTERFACE DEFINITIONS / ENUMERATIONS / SIMPLE TYPEDEFS
 //============================================================================
 
+#ifdef _MSC_VER
+#define interrupt __declspec (naked)
+#else
+#define interrupt
+#endif
+
 #define far
 #define near
 
@@ -50,38 +56,38 @@ extern	int				_cdecl	hal_initialize ();
 //! shutdown hardware abstraction layer
 extern	int				_cdecl	hal_shutdown ();
 
+//! enables hardware device interrupts
+extern	void			_cdecl	enable ();
+
+//! disables hardware device interrupts
+extern	void			_cdecl	disable ();
+
 //! generates interrupt
 extern	void			_cdecl	geninterrupt (int n);
 
-//! notifies hal interrupt is done
-extern	void			_cdecl	interruptdone (unsigned int intno);
+//! reads from hardware device port
+extern	unsigned char	_cdecl	inportb (unsigned short id);
 
-//! output sound to speaker
-extern	void			_cdecl	sound (unsigned frequency);
-
-//! read byte from device using port mapped io
-extern	unsigned char	_cdecl inportb (unsigned short portid);
-
-//! write byte to device through port mapped io
-extern void				_cdecl outportb (unsigned short portid, unsigned char value);
-
-//! enables all hardware interrupts
-extern void				_cdecl enable ();
-
-//! disable all hardware interrupts
-extern void				_cdecl disable ();
+//! writes byte to hardware port
+extern	void			_cdecl	outportb (unsigned short id, unsigned char value);
 
 //! sets new interrupt vector
-extern void				_cdecl setvect (int intno, void (_cdecl far &vect) ( ) );
+extern	void			_cdecl	setvect (int intno, void (_cdecl far &vect) ( ) );
 
-//! returns current interrupt vector
-extern void				(_cdecl far * _cdecl	getvect (int intno)) ( );
+//! returns current interrupt at interrupt vector
+extern	void (_cdecl	far * _cdecl getvect (int intno)) ( );
+
+//! notifies hal the interrupt is done
+extern	void			_cdecl	interruptdone (unsigned int intno);
+
+//! generates sound
+extern	void			_cdecl	sound (unsigned frequency);
 
 //! returns cpu vender
-extern const char*		_cdecl get_cpu_vender ();
+extern const char*		_cdecl	get_cpu_vender ();
 
-//! returns current tick count (only for demo)
-extern int				_cdecl get_tick_count ();
+//! returns current tick count (Only for demo)
+extern	int				_cdecl	get_tick_count ();
 
 //============================================================================
 //    INTERFACE OBJECT CLASS DEFINITIONS
